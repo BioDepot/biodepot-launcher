@@ -45,7 +45,7 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git add binaries.zip
+          git add -f binaries.zip
           git commit -am "Added binaries to run Biodepot Launcher."
           git push
           
