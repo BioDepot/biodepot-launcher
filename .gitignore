@@ -1,0 +1,36 @@
+/DNA
+/general
+/serverless
+/RNA
+/nanopore
+/dist
+BASEREADME.md
+
+/node_modules
+/gui/node_modules
+/gui/build
+/gui/tmp
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.tmp
+.storage
+
+binaries.zip
+npm-debug.log*
+yarn-debug.log*
+
+neutralinojs.log
+dm-output.log

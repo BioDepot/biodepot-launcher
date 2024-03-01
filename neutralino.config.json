@@ -1,0 +1,40 @@
+{
+  "applicationId": "js.neutralino.zero",
+  "version": "1.0.0",
+  "defaultMode": "window",
+  "documentRoot": "/gui/build/",
+  "url": "/",
+  "port": 42000,
+  "enableServer": true,
+  "enableNativeAPI": true,
+  "tokenSecurity": "one-time",
+  "nativeAllowList": [
+    "app.*",
+    "os.*",
+    "filesystem.*",
+    "window.*",
+    "storage.*"
+  ],
+  "modes": {
+    "window": {
+      "title": "BwbLauncher",
+      "width": 800,
+      "height": 700,
+      "minWidth": 800,
+      "minHeight": 700,
+      "icon": "/gui/build/whale.png"
+    }
+  },
+  "cli": {
+    "binaryName": "gui-app",
+    "resourcesPath": "/gui/build/",
+    "extensionsPath": "/extensions/",
+    "clientLibrary": "/gui/public/__neutralino_globals.js",
+    "binaryVersion": "4.14.1",
+    "clientVersion": "3.12.0",
+    "frontendLibrary": {
+      "patchFile": "/gui/public/index.html",
+      "devUrl": "http://localhost:3000"
+    }
+  }
+}

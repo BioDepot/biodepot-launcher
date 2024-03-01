@@ -1,0 +1,78 @@
+// import logo from './logo.svg';
+import './App.css';
+import Sidebar from './components/Sidebar';
+import WorkflowPage from './pages/WorkflowPage';
+import MarketplacePage from './pages/MarketplacePage';
+import DocuPage from './pages/DocuPage';
+import BaseDocumentation from './pages/BaseDocuPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+// import useHasDocker from './hooks/useHasDocker';
+// import DockerAlertModal from './components/DockerAlertModal';
+// import useBaseDoc from './hooks/useBaseDoc';
+import useWorkflowUpdates from './hooks/useWorkflowUpdates';
+import { CATEGORIES } from './constants';
+import useGetFileDetails from './hooks/useGetFileDetails';
+import { filesystem, events } from "@neutralinojs/lib";
+
+function App() {
+  // The contents of the currently selected documentation
+  const [selectedDoc, setSelectedDoc] = useState('');
+  // our state variable for the selected workflow category
+  // const [workflowCategory, setWorkflowCategory] = useState('');
+  // our state variable for the selected documentation file
+  const [selectedPage, setSelectedPage] = useState("Workflow repository");
+
+  // const [loading, setLoading] = useState(true);
+  // our hook to check whether the user has docker installed or not
+  // const hasDocker = useHasDocker();
+  // our hook to get most recent base documentation for BWB if needed
+  // useBaseDoc();
+
+  const needsUpdates = useWorkflowUpdates();
+  const fileDetails = useGetFileDetails();
+
+  // Ensures that we have a folder ready for each workflow category
+  const runInit = async () => {
+    const dirEntries = await filesystem.readDirectory('./');
+    const dirEntriesByName = dirEntries.map((x) => x.entry);
+    const readyStatus = CATEGORIES.every((category) => dirEntriesByName.includes(category));
+    const missingDirs = CATEGORIES.filter((category) => !dirEntriesByName.includes(category));
+    if (!readyStatus) {
+      for (const category of missingDirs) {
+        await filesystem.createDirectory(`./${category}`);
+      }
+    }
+  };
+  events.on('ready', () => {
+    runInit();
+  }); 
+  
+
+  return (
+    <main className="d-flex flex-nowrap h-100">
+      <Router>
+        {/* { hasDocker !== null ? <DockerAlertModal show={!hasDocker} /> : null } */}
+        <Sidebar
+          // hasDocker={hasDocker}
+          hasDocker= {true} 
+          selectedPage={selectedPage} 
+          setSelectedPage={setSelectedPage} 
+          setSelectedDoc={setSelectedDoc} 
+        />
+        <Routes>
+          {fileDetails ? <Route path="/" exact element={<MarketplacePage fileDetails={fileDetails} />}></Route> : <Route path="/" ></Route> }
+          <Route 
+            path="/workflow-category" 
+            exact 
+            element={<WorkflowPage setSelectedDoc={setSelectedDoc} selectedPage={selectedPage} needsUpdates={needsUpdates} />}
+          ></Route>
+          <Route path="/documentation" exact element={<DocuPage />}></Route>
+          <Route path="/base-documentation" exact element={<BaseDocumentation content={selectedDoc}/>}></Route>
+        </Routes>
+      </Router>
+    </main>
+  );
+};
+
+export default App;

@@ -1,0 +1,122 @@
+/* 
+  LIGHT BLUE IS #76d6f5 
+  PURPLE IS #5b4193
+  TAN IS #b1a281
+
+*/
+html, body {
+  height: 100%;
+}
+
+#sidebar {
+  overflow-y: scroll;
+}
+
+#docu {
+  overflow-y: scroll;
+}
+
+.sidebar-nav-item:hover {
+  background-color: #76d6f5;
+  cursor: pointer;
+}
+
+.market-nav-item:hover {
+  background-color: #76d6f5;
+  cursor: pointer;
+}
+
+.workflow-update-btn:hover {
+  background-color: #5b4193;
+  cursor: pointer;
+  color:white;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: white;
+}
+
+.docu-link {
+  text-decoration: none;
+  background-color: #212121 !important;
+}
+
+.docu-launch-link a {
+  text-decoration: none !important;
+  color: #5b4193;
+}
+
+.docu-launch-link:hover a {
+  text-decoration: none !important;
+  color: #ffffff !important;
+}
+
+.missing-docu-launch-link:hover {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+.disabled {
+  background-color: #c0c0c0;
+  color: #ffffff;
+}
+
+#selected {
+  background-color: #5b4193;
+}
+
+.docu-option:hover {
+  cursor: pointer;
+}
+
+#selected-market {
+  background-color: #5b4193;
+  color: white;
+}
+
+.workflow-button:hover {
+  background-color: #5b4193;
+  color: white;
+}
+
+.loading-spinner {
+  color: #5b4193;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.center {
+  border: 5px;
+  text-align: center;
+  padding: 5px;
+}
+
+.hover-off {
+  border: 5px;
+  text-align: center;
+  padding: 5px;
+}
+
+.hover-on {
+  border: 1px solid;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+}
+
+.grey {
+  color:grey;
+}

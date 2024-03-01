@@ -1,0 +1,51 @@
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: Install dependencies
+        run: |
+          sudo apt-get install curl wget python3 g++ pkg-config -y -f
+          sudo snap install asar --classic
+      - name: Install npm packages
+        run: |
+          cd gui
+          npm install
+          cd ..
+          sudo npm install -g @neutralinojs/neu
+      - name: Build application with npm
+        run: |
+          cd gui
+          CI=false npm run build
+          cd ..
+      - name: Update binaries and create resources.neu
+        run: |
+          neu update
+          mkdir -p tmp/gui/
+          cd tmp
+          cp -r ../gui/build gui
+          cp ../neutralino.config.json .
+          cd ..
+          asar pack ./tmp resources.neu
+      - name: Package up binaries and resources.neu
+        run: |
+          mkdir binaries
+          cp bin/* binaries/
+          chmod +x binaries/neu*
+          cp resources.neu binaries/
+          zip -r binaries.zip binaries
+      - name: Commit and push binaries
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add binaries.zip
+          git commit -am "Added binaries to run Biodepot Launcher."
+          git push
+          
