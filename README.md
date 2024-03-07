@@ -21,7 +21,7 @@ It contains all of the String constants and functions throughout the project. Fo
 1. Make sure `wget` is installed.
 2. Install [Docker](https://docs.docker.com/get-docker/) or [Docker Desktop](https://docs.docker.com/desktop/) if you are planning to run Bwb on your computer.  Additionally, if using Linux follow the directions to [Managed Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).  Start the Docker Daemon and you are ready to go.
 3. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you plan to launch Bwb on AWS.  Remember to input/install the appropriate credentials.
-4. Download docker-machine for you platform of choice by visiting the following [LINK](https://gitlab-docker-machine-downloads.s3.amazonaws.com/main/index.html).  Rename the downloaded file to `docker-machine` and place in your user's bin folder.
+4. Download docker-machine for you platform of choice by visiting the following [LINK](https://gitlab-docker-machine-downloads.s3.amazonaws.com/main/index.html).  Rename the downloaded file to `docker-machine` and place in your user's bin folder.  This is not the same bin folder that is included in the biodepot-launcher repo.
 5. Unzip the package created by the BioDepot team and double click on the binary associated with your operating system/architecture.
 
 # Install for development (Linux)
