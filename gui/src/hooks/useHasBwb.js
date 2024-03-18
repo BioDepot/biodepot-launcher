@@ -19,7 +19,7 @@ const useHasBwb = () => {
             const localBwbDigest = (await os.execCommand(`docker inspect --format='{{index .RepoDigests 0}}' biodepot/bwb`)).stdOut.split(':')[1];
             const hubBwbDigest = (await os.execCommand(`docker buildx imagetools inspect biodepot/bwb:latest | grep "docker.io/biodepot/bwb:latest@sha256"`)).stdOut.split("\n");
 
-            if (hubBwbDigest[0].split(':')[2] === localBwbDigest || hubBwbDigest[1].split(':')[2] === localBwbDigest) {
+            if (hubBwbDigest[0].split(':')[3] === localBwbDigest || hubBwbDigest[1].split(':')[3] === localBwbDigest) {
                 setHasBwb(false);
             } else {
                 setHasBwb(false);
