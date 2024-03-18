@@ -1,4 +1,4 @@
-// Type definitions for Neutralino 3.12.0
+// Type definitions for Neutralino 5.0.1
 // Project: https://github.com/neutralinojs
 // Definitions project: https://github.com/neutralinojs/neutralino.js
 
@@ -7,11 +7,15 @@ declare namespace Neutralino {
 namespace filesystem {
     interface DirectoryEntry {
         entry: string;
+        path: string;
         type: string;
     }
     interface FileReaderOptions {
         pos: number;
         size: number;
+    }
+    interface DirectoryReaderOptions {
+        recursive: boolean;
     }
     interface OpenedFile {
         id: number;
@@ -31,7 +35,7 @@ namespace filesystem {
         path: string;
     }
     function createDirectory(path: string): Promise<void>;
-    function removeDirectory(path: string): Promise<void>;
+    function remove(path: string): Promise<void>;
     function writeFile(path: string, data: string): Promise<void>;
     function appendFile(path: string, data: string): Promise<void>;
     function writeBinaryFile(path: string, data: ArrayBuffer): Promise<void>;
@@ -44,10 +48,9 @@ namespace filesystem {
     function getWatchers(): Promise<Watcher[]>;
     function updateOpenedFile(id: number, event: string, data?: any): Promise<void>;
     function getOpenedFileInfo(id: number): Promise<OpenedFile>;
-    function removeFile(path: string): Promise<void>;
-    function readDirectory(path: string): Promise<DirectoryEntry[]>;
-    function copyFile(source: string, destination: string): Promise<void>;
-    function moveFile(source: string, destination: string): Promise<void>;
+    function readDirectory(path: string, options?: DirectoryReaderOptions): Promise<DirectoryEntry[]>;
+    function copy(source: string, destination: string): Promise<void>;
+    function move(source: string, destination: string): Promise<void>;
     function getStats(path: string): Promise<Stats>;
 }
 namespace os {
@@ -197,6 +200,9 @@ namespace app {
     function restartProcess(options?: RestartOptions): Promise<void>;
     function getConfig(): Promise<any>;
     function broadcast(event: string, data?: any): Promise<void>;
+    function readProcessInput(readAll?: boolean): Promise<string>;
+    function writeProcessOutput(data: string): Promise<void>;
+    function writeProcessError(data: string): Promise<void>;
 }
 namespace window {
     interface WindowOptions extends WindowSizeOptions, WindowPosOptions {
@@ -210,6 +216,8 @@ namespace window {
         hidden?: boolean;
         maximizable?: boolean;
         useSavedState?: boolean;
+        exitProcessOnClose?: boolean;
+        extendUserAgentWith?: string;
         processArgs?: string;
     }
     interface WindowSizeOptions {
@@ -297,42 +305,39 @@ interface Error {
 
 }
 
-/** Basic authentication token */
-declare const NL_TOKEN: string;
-
-/** Operating system name: Linux, Windows, or Darwin */
-declare const NL_OS: "Linux"|"Windows"|"Darwin";
-
-/** Application identifier */
-declare const NL_APPID: string;
-
+// --- globals ---
+/** Mode of the application: window, browser, cloud, or chrome */
+declare const NL_MODE: string;
 /** Application port */
 declare const NL_PORT: number;
-
-/** Mode of the application: window, browser, or cloud */
-declare const NL_MODE: "window"|"browser"|"cloud";
-
-/** Neutralinojs server version */
-declare const NL_VERSION: string;
-
-/** Neutralinojs client version */
-declare const NL_CVERSION: "3.12.0";
-
-/** Current working directory */
-declare const NL_CWD: string;
-
-/** Application path */
-declare const NL_PATH: string;
-
 /** Command-line arguments */
 declare const NL_ARGS: string[];
-
-/** Current process's identifier */
-declare const NL_PID: number
-
+/** Basic authentication token */
+declare const NL_TOKEN: string;
+/** Neutralinojs client version */
+declare const NL_CVERSION: string;
+/** Application identifier */
+declare const NL_APPID: string;
+/** Application version */
+declare const NL_APPVERSION: string;
+/** Application path */
+declare const NL_PATH: string;
+/** Returns true if extensions are enabled */
+declare const NL_EXTENABLED: boolean;
+/** Operating system name: Linux, Windows, Darwin, FreeBSD, or Uknown */
+declare const NL_OS: string;
+/** CPU architecture: x64, arm, itanium, ia32, or unknown */
+declare const NL_ARCH: string;
+/** Neutralinojs server version */
+declare const NL_VERSION: string;
+/** Current working directory */
+declare const NL_CWD: string;
+/** Identifier of the current process */
+declare const NL_PID: string;
+/** Source of application resources: bundle or directory */
+declare const NL_RESMODE: string;
 /** Release commit of the client library */
 declare const NL_CCOMMIT: string;
-
 /** An array of custom methods */
 declare const NL_CMETHODS: string[];
 

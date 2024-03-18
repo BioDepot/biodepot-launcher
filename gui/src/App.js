@@ -15,7 +15,9 @@ import {
 } from './constants';
 import useHasAWS from './hooks/useHasAWS';
 import useHasDM from './hooks/useHasDM';
+import useHasBwb from './hooks/useHasBwb';
 import useCheckRevert from './hooks/useCheckRevert';
+import BwbAlertModal from './components/BwbAlertModal';
 
 function App() {
   // The contents of the currently selected documentation
@@ -27,8 +29,6 @@ function App() {
   const [allDependencies, setAllDependencies] = useState(true);
 
   // Determines which dependencies are installed or not
-
-
   let hasDocker = null;
   hasDocker = useHasDocker();
 
@@ -45,6 +45,11 @@ function App() {
       }
     }
   }, [hasDocker, hasAWS, hasDM]);
+
+  let hasBwb = null;
+  hasBwb = useHasBwb();
+  let dependenciesWindowClosed = false;
+
 
   // Ensures that we have a folder ready for each workflow category
   const runInit = async () => {
@@ -75,7 +80,8 @@ function App() {
   return (
     <main className="d-flex flex-nowrap h-100">
       <Router>
-        { allDependencies ? null : <DependencyAlertModal show={!hasDocker || !hasAWS || !hasDM} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM}/> }
+        { allDependencies ? null : <DependencyAlertModal show={!hasDocker || !hasAWS || !hasDM} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} closed={dependenciesWindowClosed}/> }
+        { dependenciesWindowClosed && !hasBwb && hasDocker ? <BwbAlertModal /> : null}
         <Sidebar
           selectedPage={selectedPage} 
           setSelectedPage={setSelectedPage} 

@@ -13,7 +13,10 @@ import { os } from "@neutralinojs/lib";
 
 export default (props) => {
    const [show, setShow] = useState(props.show);
-   const handleClose = () => setShow(false);
+   const handleClose = () => {
+      setShow(false);
+      props.closed = true;
+   }
 
    const openDockerPage = async () => {
       await os.open(DOCKER_PAGE_URL);
