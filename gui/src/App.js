@@ -77,11 +77,16 @@ function App() {
   // Gathers which workflows can be reverted
   let canRevert = useCheckRevert();
 
+  const openBwbUpdate = async () => {
+    if (!hasBwb && hasDocker) {
+      <BwbAlertModal />
+    }
+  }
+
   return (
     <main className="d-flex flex-nowrap h-100">
       <Router>
-        { allDependencies ? null : <DependencyAlertModal show={!hasDocker || !hasAWS || !hasDM} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} closed={dependenciesWindowClosed}/> }
-        { dependenciesWindowClosed && !hasBwb && hasDocker ? <BwbAlertModal /> : null}
+        { allDependencies ? null : <DependencyAlertModal show={!hasDocker || !hasAWS || !hasDM} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} openBwbUpdate={openBwbUpdate}/> }
         <Sidebar
           selectedPage={selectedPage} 
           setSelectedPage={setSelectedPage} 

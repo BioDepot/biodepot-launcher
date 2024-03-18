@@ -11,10 +11,9 @@ import React, { useState } from 'react';
 import { os } from "@neutralinojs/lib";
 
 export default (props) => {
-    const [show, setShow] = useState(props.show);
+    const [show, setShow] = useState(true);
     const handleClose = () => {
         setShow(false);
-        props.closed = true;
     }
 
     const getBwb = async () => {

@@ -15,7 +15,7 @@ export default (props) => {
    const [show, setShow] = useState(props.show);
    const handleClose = () => {
       setShow(false);
-      props.closed = true;
+      props.openBwbUpdate;
    }
 
    const openDockerPage = async () => {
