@@ -13,13 +13,13 @@ const useHasBwb = () => {
     const [hasBwb, setHasBwb] = useState(null);
 
     const checkForBwb = async () => {
-        const hasBwbCommand = (await os.execCommand('docker images | grep biodepot/bwb')).stdOut;
+        const hasBwbCommand = (await os.execCommand('docker images | grep -c biodepot/bwb')).stdOut;
         
         if (hasBwbCommand > 0) {
             const localBwbDigest = (await os.execCommand(`docker inspect --format='{{index .RepoDigests 0}}' biodepot/bwb`)).stdOut.split(':')[1];
-            const hubBwbDigest = (await os.execCommand(`docker buildx imagetools inspect biodepot/bwb:latest | grep "docker.io/biodepot/bwb:latest@sha256"`)).stdOut.split("\n");
+            const hubBwbDigest = (await os.execCommand(`docker buildx imagetools inspect biodepot/bwb:latest | grep "Digest:"`)).stdOut.split(':')[2];
 
-            if (hubBwbDigest[0].split(':')[3] === localBwbDigest || hubBwbDigest[1].split(':')[3] === localBwbDigest) {
+            if (hubBwbDigest === localBwbDigest) {
                 setHasBwb(true);
             } else {
                 setHasBwb(false);
