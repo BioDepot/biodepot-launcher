@@ -27,6 +27,7 @@ function App() {
   const [selectedPage, setSelectedPage] = useState("Workflow repository");
 
   const [allDependencies, setAllDependencies] = useState(true);
+  const [modalClosed, setModalClosed] = useState(false);
 
   // Determines which dependencies are installed or not
   let hasDocker = null;
@@ -48,8 +49,6 @@ function App() {
 
   let hasBwb = null;
   hasBwb = useHasBwb();
-  let dependenciesWindowClosed = false;
-
 
   // Ensures that we have a folder ready for each workflow category
   const runInit = async () => {
@@ -86,7 +85,8 @@ function App() {
   return (
     <main className="d-flex flex-nowrap h-100">
       <Router>
-        { allDependencies ? null : <DependencyAlertModal show={!hasDocker || !hasAWS || !hasDM} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} openBwbUpdate={openBwbUpdate}/> }
+        { allDependencies ? setModalClosed(true) : <DependencyAlertModal show={!hasDocker || !hasAWS || !hasDM} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} openBwbUpdate={openBwbUpdate}/> }
+        { modalClosed ? openBwbUpdate() : null }
         <Sidebar
           selectedPage={selectedPage} 
           setSelectedPage={setSelectedPage} 
