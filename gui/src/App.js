@@ -17,7 +17,6 @@ import useHasAWS from './hooks/useHasAWS';
 import useHasDM from './hooks/useHasDM';
 import useHasBwb from './hooks/useHasBwb';
 import useCheckRevert from './hooks/useCheckRevert';
-import BwbAlertModal from './components/BwbAlertModal';
 
 function App() {
   // The contents of the currently selected documentation
@@ -39,16 +38,16 @@ function App() {
   let hasDM = null;
   hasDM = useHasDM();
 
+  let hasBwb = null;
+  hasBwb = useHasBwb();
+
   useEffect(() => { 
-    if (hasDocker !== null && hasAWS !== null && hasDM !== null ) {
-      if (!hasDocker || !hasAWS || !hasDM) {
+    if (hasDocker !== null && hasAWS !== null && hasDM !== null && hasBwb !== null) {
+      if (!hasDocker || !hasAWS || !hasDM || !hasBwb) {
         setAllDependencies(false);
       }
     }
-  }, [hasDocker, hasAWS, hasDM]);
-
-  let hasBwb = null;
-  hasBwb = useHasBwb();
+  }, [hasDocker, hasAWS, hasDM, hasBwb]);
 
   // Ensures that we have a folder ready for each workflow category
   const runInit = async () => {
@@ -76,17 +75,10 @@ function App() {
   // Gathers which workflows can be reverted
   let canRevert = useCheckRevert();
 
-  const openBwbUpdate = async () => {
-    if (!hasBwb && hasDocker) {
-      <BwbAlertModal />
-    }
-  }
-
   return (
     <main className="d-flex flex-nowrap h-100">
       <Router>
-        { allDependencies ? setModalClosed(true) : <DependencyAlertModal show={!hasDocker || !hasAWS || !hasDM} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} openBwbUpdate={openBwbUpdate}/> }
-        { modalClosed ? openBwbUpdate() : null }
+        { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} /> }
         <Sidebar
           selectedPage={selectedPage} 
           setSelectedPage={setSelectedPage} 
