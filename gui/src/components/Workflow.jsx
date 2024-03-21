@@ -81,25 +81,6 @@ function Workflow(props) {
       }
    };
 
-   const openInWindow = async () => {
-      const openBWB = async () => {
-         await window.create('http://localhost:6080', {
-            icon: '/gui/public/whale.png',
-            enableInspector: false,
-            width: 500,
-            height: 500,
-            maximize: true,
-            exitProcessOnClose: true,
-            processArgs: '--window-id=W_ABOUT'
-         });
-         closeLaunchModal();
-      };
-
-      setTimeout(() => {
-         openBWB();
-      }, 10000);
-   };
-
    const openGitPod = async () => {
       const alteredWorkflowName = `${props.name}`.replace('_', '-');
       await os.open("https://gitpod.io/#https://github.com/Biodepot-workflows/" + alteredWorkflowName);
@@ -225,7 +206,7 @@ function Workflow(props) {
          }
 
          for (let file of files) {
-            await os.execCommand(`wget -q -O ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
+            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
          }
          
          for (let i = 0; i < props.needsUpdates.length; i++) {
@@ -302,7 +283,7 @@ function Workflow(props) {
          }
 
          for (let file of files) {
-            await os.execCommand(`wget -q -O ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
+            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
          }
 
          clearRevert(workflowType, workflow);
@@ -385,7 +366,6 @@ function Workflow(props) {
             show={showLaunchModal} 
             handleClose={closeLaunchModal} 
             inBrowser={() => { runOpenCommand(); openInBrowser(); }} 
-            inWindow={() => { runOpenCommand(); openInWindow(); }}
             onGitPod={() => { openGitPod(); }}
             onAWS={() => { setShowLaunchModal(false); setShowMessage(false); setDisableLaunch(false); setRegion(""); setInstance(""); setShow(true); }}
          />

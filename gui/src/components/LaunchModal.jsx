@@ -5,7 +5,7 @@
  * @return {JSX} - the modal asking the user
  */
 import { useState } from 'react';
-import { LAUNCH_COMMAND, LAUNCH_BROSWER, LAUNCH_WINDOW, LAUNCH_GITPOD, LAUNCH_AWS } from '../constants';
+import { LAUNCH_BROSWER, LAUNCH_GITPOD, LAUNCH_AWS } from '../constants';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
@@ -26,8 +26,6 @@ const LaunchModal = (props) => {
          props.onAWS();
       } else if (option === LAUNCH_GITPOD) {
          props.onGitPod();
-      } else {
-         props.inWindow();
       }
 
       setTimeout(() => {
@@ -57,9 +55,6 @@ const LaunchModal = (props) => {
          <span>{ text }</span>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleOption(LAUNCH_WINDOW)}>
-          Window
-        </Button>
         <Button variant="secondary" onClick={() => handleOption(LAUNCH_BROSWER)}>
           Browser
         </Button>

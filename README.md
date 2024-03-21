@@ -18,14 +18,14 @@ The other important file to look at is `constants.js`.
 It contains all of the String constants and functions throughout the project. For example, it has the Github API key and the Docker install page URL. **__Notably__**, it has the list of workflow categories recognized by the project. If you need to add a new workflow category, simply add a new string constant for the workflow category itself and add it into the `CATEGORIES` list. Any workflow category string value **NEEDS** to match the folder name inside of the `workflows` repo, otherwise requests to the Github API for it will fail.
 
 # Install as a user
-1. Make sure `wget` is installed.
+1. Make sure `curl` is installed.
 2. Install [Docker](https://docs.docker.com/get-docker/) or [Docker Desktop](https://docs.docker.com/desktop/) if you are planning to run Bwb on your computer.  Additionally, if using Linux follow the directions to [Managed Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).  Start the Docker Daemon and you are ready to go.
 3. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you plan to launch Bwb on AWS.  Remember to input/install the appropriate credentials.
 4. Download docker-machine for you platform of choice by visiting the following [LINK](https://gitlab-docker-machine-downloads.s3.amazonaws.com/main/index.html).  Rename the downloaded file to `docker-machine` and place in your user's bin folder.  This is not the same bin folder that is included in the biodepot-launcher repo.
 5. Unzip the package created by the BioDepot team and double click on the binary associated with your operating system/architecture.
 
 # Install for development (Linux)
-1. Make sure `wget` is installed.
+1. Make sure `curl` is installed.
 2. Install [Docker](https://docs.docker.com/get-docker/) or [Docker Desktop](https://docs.docker.com/desktop/).  Additionally, if using Linux follow the directions to [Managed Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
 3. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).  Remember to input/install the appropriate credentials.
 4. Download docker-machine for you platform of choice by visiting the following [LINK](https://gitlab-docker-machine-downloads.s3.amazonaws.com/main/index.html).  Rename the downloaded file to `docker-machine` and place in your user's bin folder.
