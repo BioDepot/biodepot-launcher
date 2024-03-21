@@ -56,8 +56,8 @@ export default (props) => {
    };
 
    return (
-      <div>
-         <Modal show={show} onHide={handleClose}>
+      <div data-backdrop="static">
+         <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
                <Modal.Title>Missing Dependencies</Modal.Title>
             </Modal.Header>
@@ -87,10 +87,14 @@ export default (props) => {
                   </Button> : null}
             </Modal.Footer>
          </Modal>
-         <Modal show={showBwb} onHide={handleBwbClose}>
+         <Modal show={showBwb} onHide={handleBwbClose} backdrop="static" keyboard={false}>
+            {disableClose ? 
+            <Modal.Header>
+               <Modal.Title>Bwb Install/Update</Modal.Title>
+            </Modal.Header> : 
             <Modal.Header closeButton>
                <Modal.Title>Bwb Install/Update</Modal.Title>
-            </Modal.Header>
+            </Modal.Header>}
             <Modal.Body>
                   <div>We are detecting that the latest version of Bwb is not on your system.  Verify that you aren't currently running Bwb 
                     and please update or install Bwb.</div>

@@ -13,14 +13,20 @@ const useHasBwb = () => {
     const [hasBwb, setHasBwb] = useState(null);
 
     const checkForBwb = async () => {
-        const hasBwbCommand = (await os.execCommand('docker images | grep -c biodepot/bwb')).stdOut;
+        const hasDockerCommand = await os.execCommand('docker info');
         
-        if (hasBwbCommand > 0) {
-            const localBwbDigest = (await os.execCommand(`docker inspect --format='{{index .RepoDigests 0}}' biodepot/bwb`)).stdOut.split(':')[1];
-            const hubBwbDigest = (await os.execCommand(`docker buildx imagetools inspect biodepot/bwb:latest | grep "Digest:"`)).stdOut.split(':')[2];
-
-            if (hubBwbDigest === localBwbDigest) {
-                setHasBwb(true);
+        if (hasDockerCommand.exitCode !== 127) {
+            const hasBwbCommand = (await os.execCommand('docker images | grep -c biodepot/bwb')).stdOut;
+        
+            if (hasBwbCommand > 0) {
+                const localBwbDigest = (await os.execCommand(`docker inspect --format='{{index .RepoDigests 0}}' biodepot/bwb`)).stdOut.split(':')[1];
+                const hubBwbDigest = (await os.execCommand(`docker buildx imagetools inspect biodepot/bwb:latest | grep "Digest:"`)).stdOut.split(':')[2];
+    
+                if (hubBwbDigest === localBwbDigest) {
+                    setHasBwb(true);
+                } else {
+                    setHasBwb(false);
+                }
             } else {
                 setHasBwb(false);
             }

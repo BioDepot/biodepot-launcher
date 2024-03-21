@@ -402,7 +402,7 @@ function Workflow(props) {
             </OverlayTrigger>
             
          </td>
-         <Modal show={show} onHide={handleClose}>
+         <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
                <Modal.Title>Choose Parameters for AWS Instance</Modal.Title>
             </Modal.Header>
@@ -430,7 +430,7 @@ function Workflow(props) {
                </Button>
             </Modal.Footer>
          </Modal>
-         <Modal show={showUpdate} onHide={closeUpdateModal}>
+         <Modal show={showUpdate} onHide={closeUpdateModal} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
                <Modal.Title>Warning!</Modal.Title>
             </Modal.Header>
@@ -446,7 +446,7 @@ function Workflow(props) {
                </Button>
             </Modal.Footer>
          </Modal>
-         <Modal show={showRevert} onHide={closeRevertModal}>
+         <Modal show={showRevert} onHide={closeRevertModal} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
                <Modal.Title>Warning!</Modal.Title>
             </Modal.Header>

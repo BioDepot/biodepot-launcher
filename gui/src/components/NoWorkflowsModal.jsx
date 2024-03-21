@@ -12,7 +12,7 @@ const NoWorkflowsModal = (props) => {
    const handleClose = () => setShow(false);
 
    return (
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
          <Modal.Header closeButton>
             <Modal.Title>No Workflows</Modal.Title>
          </Modal.Header>
