@@ -73,7 +73,7 @@ function Workflow(props) {
 
    const runOpenCommand = async () => {
       try {
-         const command = `${LAUNCH_COMMAND} -e STARTING_WORKFLOW=/data/${props.category}/${props.name}/${props.name}.ows biodepot/bwb:latest `;
+         const command = `${LAUNCH_COMMAND} -e STARTING_WORKFLOW=/data/${props.category}/${props.name}/${props.name}.ows biodepot/bwb`;
          console.log(command);
          await os.execCommand(command, { background: true });
       } catch (e) {
