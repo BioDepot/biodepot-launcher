@@ -12,7 +12,7 @@ root.render(
     <App />
   </React.StrictMode>
 );
-//in dev mode the storageToken will be stored - and we set the port to be constant 42000 
+// in dev mode the storageToken will be stored - and we set the port to be constant 42000 
 const storedToken = sessionStorage.getItem('NL_TOKEN');
 if (storedToken){
   window.NL_PORT = '42000';

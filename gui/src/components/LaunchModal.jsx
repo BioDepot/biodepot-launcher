@@ -48,7 +48,7 @@ const LaunchModal = (props) => {
    };
 
    return (
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal show={props.show} onHide={props.handleClose} backdrop="static" keyboard={false}>
       <Modal.Header closeButton>
         <Modal.Title>Choose Launch Method</Modal.Title>
       </Modal.Header>

@@ -15,6 +15,7 @@ import {
 } from './constants';
 import useHasAWS from './hooks/useHasAWS';
 import useHasDM from './hooks/useHasDM';
+import useHasBwb from './hooks/useHasBwb';
 import useCheckRevert from './hooks/useCheckRevert';
 
 function App() {
@@ -25,10 +26,9 @@ function App() {
   const [selectedPage, setSelectedPage] = useState("Workflow repository");
 
   const [allDependencies, setAllDependencies] = useState(true);
+  const [modalClosed, setModalClosed] = useState(false);
 
   // Determines which dependencies are installed or not
-
-
   let hasDocker = null;
   hasDocker = useHasDocker();
 
@@ -38,13 +38,16 @@ function App() {
   let hasDM = null;
   hasDM = useHasDM();
 
+  let hasBwb = null;
+  hasBwb = useHasBwb();
+
   useEffect(() => { 
-    if (hasDocker !== null && hasAWS !== null && hasDM !== null ) {
-      if (!hasDocker || !hasAWS || !hasDM) {
+    if (hasDocker !== null && hasAWS !== null && hasDM !== null && hasBwb !== null) {
+      if (!hasDocker || !hasAWS || !hasDM || !hasBwb) {
         setAllDependencies(false);
       }
     }
-  }, [hasDocker, hasAWS, hasDM]);
+  }, [hasDocker, hasAWS, hasDM, hasBwb]);
 
   // Ensures that we have a folder ready for each workflow category
   const runInit = async () => {
@@ -75,7 +78,7 @@ function App() {
   return (
     <main className="d-flex flex-nowrap h-100">
       <Router>
-        { allDependencies ? null : <DependencyAlertModal show={!hasDocker || !hasAWS || !hasDM} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM}/> }
+        { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} /> }
         <Sidebar
           selectedPage={selectedPage} 
           setSelectedPage={setSelectedPage} 
