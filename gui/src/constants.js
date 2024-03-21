@@ -40,9 +40,6 @@ export const WORKFLOW_COMMIT_GITHUB_URL = "/repos/BioDepot-LLC/workflows/commits
 // constant for launch in-browser
 export const LAUNCH_BROSWER = "LAUNCH_BROWSER";
 
-// constant for launch in-window
-export const LAUNCH_WINDOW = "LAUNCH_WINDOW";
-
 // constant for launch GitPod
 export const LAUNCH_GITPOD = "LAUNCH_GITPOD";
 

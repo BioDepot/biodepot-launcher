@@ -65,7 +65,7 @@ function Workflow(props) {
          }
 
          for (let file of files) {
-            await os.execCommand(`wget -q -O ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
+            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
          }
 
          setHashState();
