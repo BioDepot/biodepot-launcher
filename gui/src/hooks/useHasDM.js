@@ -6,7 +6,7 @@ const useHasDM = () => {
 
    const checkForDM = async () => {
       const hasAWSCommand = await os.execCommand('docker-machine --version');
-      setHasDM(hasAWSCommand.exitCode !== 127);
+      setHasDM(hasAWSCommand.exitCode === 0);
    };
    
    useEffect(() => {

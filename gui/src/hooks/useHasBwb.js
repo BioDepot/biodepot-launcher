@@ -15,7 +15,7 @@ const useHasBwb = () => {
     const checkForBwb = async () => {
         const hasDockerCommand = await os.execCommand('docker info');
         
-        if (hasDockerCommand.exitCode !== 127) {
+        if (hasDockerCommand.exitCode === 0) {
             const hasBwbCommand = (await os.execCommand('docker images | grep -c biodepot/bwb')).stdOut;
         
             if (hasBwbCommand > 0) {
