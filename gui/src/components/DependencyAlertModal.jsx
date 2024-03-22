@@ -13,7 +13,7 @@ import { os } from "@neutralinojs/lib";
 
 export default (props) => {
    const [show, setShow] = useState(!props.hasDocker || !props.hasAWS || !props.hasDM);
-   const [showBwb, setShowBwb] = useState(!show && props.hasDocker);
+   const [showBwb, setShowBwb] = useState(!show && props.hasDocker && !props.hasBwb);
    const [showMessage, setShowMessage] = useState(false);
    const [disableInstall, setDisableInstall] = useState(false);
    const [disableClose, setDisableClose] = useState(false);
