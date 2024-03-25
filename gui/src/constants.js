@@ -50,7 +50,7 @@ export const LAUNCH_AWS = "LAUNCH_AWS";
 // FORMAT: '<WORKFLOW-CATEGORY>-<WORKFLOW-NAME>-COMMIT-DATE'
 export const GET_WORKFLOW_COMMIT_DATE_KEY = (category, name) => `${category}-${name}`;
 
-export const LAUNCH_COMMAND = `docker run --rm -p 6080:6080 -v $PWD/:/data -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/.X11-unix:/tmp/.X11-unix --privileged --group-add root `;
+export const LAUNCH_COMMAND = `docker run --rm -p 6080:6080 -v $PWD:/data -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/.X11-unix:/tmp/.X11-unix --privileged --group-add root `;
 
 // constant for BASIC RUN COMMAND WITHOUT WORKFLOW FLAG
 export const BASIC_COMMAND = "docker run --rm -p 6080:6080 -v ${PWD}/:/data -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/.X11-unix:/tmp/.X11-unix --privileged --group-add root biodepot/bwb";
