@@ -26,7 +26,7 @@ function App() {
   const [selectedPage, setSelectedPage] = useState("Workflow repository");
 
   const [allDependencies, setAllDependencies] = useState(true);
-  const [modalClosed, setModalClosed] = useState(false);
+  const [loadContent, setLoadContent] = useState(false);
 
   // Determines which dependencies are installed or not
   let hasDocker = null;
@@ -69,29 +69,42 @@ function App() {
   runInit();
 
   // Gathers which workflows have an update
-  let needsUpdates = useWorkflowUpdates();
+  let needsUpdates = null;
+  needsUpdates = useWorkflowUpdates();
   // Gathers the file details of all workflows
-  const fileDetails = useGetFileDetails();
+  let fileDetails = null;
+  fileDetails = useGetFileDetails();
   // Gathers which workflows can be reverted
-  let canRevert = useCheckRevert();
+  let canRevert = null;
+  canRevert = useCheckRevert();
+
+  useEffect(() => { 
+    if (needsUpdates !== null && fileDetails !== null && canRevert !== null) {
+      setLoadContent(true);
+    }
+  }, [needsUpdates, fileDetails, canRevert]);
 
   return (
     <main className="d-flex flex-nowrap h-100">
-      <Router>
-        { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} /> }
-        <Sidebar
-          selectedPage={selectedPage} 
-          setSelectedPage={setSelectedPage} 
-        />
-        <Routes>
-          {fileDetails ? <Route path="/" exact element={<MarketplacePage fileDetails={fileDetails} />}></Route> : <Route path="/" ></Route> }
-          <Route 
-            path="/workflow-category" 
-            exact 
-            element={<WorkflowPage setSelectedDoc={setSelectedDoc} selectedPage={selectedPage} needsUpdates={needsUpdates} canRevert={canRevert} fileDetails={fileDetails}/>}
-          ></Route>
-        </Routes>
-      </Router>
+      { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} /> }
+        { loadContent ?
+        <Router>
+          <Sidebar
+            selectedPage={selectedPage} 
+            setSelectedPage={setSelectedPage} 
+          />
+          <Routes>
+            {fileDetails ? <Route path="/" exact element={<MarketplacePage fileDetails={fileDetails} />}></Route> : <Route path="/" ></Route> }
+            <Route 
+              path="/workflow-category" 
+              exact 
+              element={<WorkflowPage setSelectedDoc={setSelectedDoc} selectedPage={selectedPage} needsUpdates={needsUpdates} canRevert={canRevert} fileDetails={fileDetails}/>}
+            ></Route>
+          </Routes>
+        </Router> :
+        <div>
+          <text>Loading workflows, please wait a moment...</text>
+        </div> }
     </main>
   );
 };

@@ -44,7 +44,7 @@ const useWorkflowUpdates = () => {
    
          for (let workflow of installedWorkflows) {
             for (let h of hashDetails) {
-               if (`./${workflow.category}/${workflow.name}` === h[1]) {
+               if (`./${workflow.category}/${workflow.name}` === h[1].trim()) {
                   const savedHash = await getSavedHash(workflow.category, workflow.name);
    
                   if (savedHash.trim() !== h[0]) {
