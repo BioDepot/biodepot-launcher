@@ -39,7 +39,7 @@ jobs:
           mkdir binaries
           cp bin/* binaries/
           chmod +x binaries/neu*
-          cp scripts binaries/
+          cp -r scripts/ binaries/
           cp resources.neu binaries/
           zip -r binaries.zip binaries
       - name: Commit and push binaries
