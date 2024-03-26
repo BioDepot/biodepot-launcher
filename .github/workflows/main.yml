@@ -40,7 +40,7 @@ jobs:
           cp bin/* binaries/
           chmod +x binaries/neu*
           cp -r scripts/ binaries/
-          cp -r install_scriptt/ binaries/
+          cp -r install_scripts/ binaries/
           cp resources.neu binaries/
           zip -r binaries.zip binaries
       - name: Commit and push binaries
