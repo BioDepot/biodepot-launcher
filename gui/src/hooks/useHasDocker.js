@@ -14,7 +14,7 @@ const useHasDocker = () => {
  
    const checkForDocker = async () => {
       const hasDockerCommand = await os.execCommand('docker info');
-      setHasDocker(hasDockerCommand.exitCode !== 127);
+      setHasDocker(hasDockerCommand.exitCode === 0);
    };
 
    useEffect(() => {

@@ -14,15 +14,17 @@ const useHasBwb = () => {
 
     const checkForBwb = async () => {
         const hasDockerCommand = await os.execCommand('docker info');
-        
-        if (hasDockerCommand.exitCode !== 127) {
-            const hasBwbCommand = (await os.execCommand('docker images | grep -c biodepot/bwb')).stdOut;
-        
-            if (hasBwbCommand > 0) {
-                const localBwbDigest = (await os.execCommand(`docker inspect --format='{{index .RepoDigests 0}}' biodepot/bwb`)).stdOut.split(':')[1];
-                const hubBwbDigest = (await os.execCommand(`docker buildx imagetools inspect biodepot/bwb:latest | grep "Digest:"`)).stdOut.split(':')[2];
-    
-                if (hubBwbDigest === localBwbDigest) {
+
+        if (hasDockerCommand.exitCode === 0) {
+            const hasBwbCommand = (await os.execCommand('docker images --format "{{.Repository}}" biodepot/bwb')).stdOut;
+
+            if (hasBwbCommand.replace(/(\r\n|\n|\r)/gm, "") === "biodepot/bwb") {
+                const localBwbDigest = (await os.execCommand(`docker inspect --format='{{index .RepoDigests 0}}' biodepot/bwb`)).stdOut.split('@')[1];
+                const hubBwbOut = (await os.execCommand(`docker buildx imagetools inspect --format='{{json .Manifest}}' biodepot/bwb:latest`)).stdOut.replace(/(\r\n|\n|\r)/gm, "");
+                
+                const hubBwbDigest = JSON.parse(hubBwbOut)['digest'];
+
+                if (localBwbDigest.replace(/(\r\n|\n|\r)/gm, "") === hubBwbDigest.replace(/(\r\n|\n|\r)/gm, "")) {
                     setHasBwb(true);
                 } else {
                     setHasBwb(false);

@@ -6,7 +6,7 @@ const useHasAWS = () => {
 
    const checkForAWS = async () => {
       const hasAWSCommand = await os.execCommand('aws --version');
-      setHasAWS(hasAWSCommand.exitCode !== 127);
+      setHasAWS(hasAWSCommand.exitCode === 0);
    };
    
    useEffect(() => {
