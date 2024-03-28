@@ -378,10 +378,9 @@ function Workflow(props) {
    };
 
    const checkBwbDependencies = () => {
-      alert(props.hasDocker + " " + props.hasBwb);
-      if (!props.hasDocker) {
+      if (props.hasDocker === false) {
          openDockerModal(true);
-      } else if (!props.hasBwb) {
+      } else if (props.hasBwb === false) {
          openBwbModal(true);
       } else {
          runOpenCommand();
@@ -502,7 +501,7 @@ function Workflow(props) {
          </Modal>
          <Modal show={showBwbModal} onHide={closeBwbModal} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
-               <Modal.Title>Note</Modal.Title>
+               <Modal.Title>Warning!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                <span>The workflow cannot be launched in a browser without Bwb.  Please install Bwb.</span>
