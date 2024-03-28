@@ -502,9 +502,13 @@ function Workflow(props) {
             </Modal.Footer>
          </Modal>
          <Modal show={showBwbModal} onHide={closeBwbModal} backdrop="static" keyboard={false}>
+            {disableClose ? 
+            <Modal.Header>
+               <Modal.Title>Warning!</Modal.Title>
+            </Modal.Header> : 
             <Modal.Header closeButton>
                <Modal.Title>Warning!</Modal.Title>
-            </Modal.Header>
+            </Modal.Header>}
             <Modal.Body>
                <span>The workflow cannot be launched in a browser without Bwb.  Please install Bwb.</span>
                {showInstallationMessage && <div><hr></hr>Installation will take several minutes... please stay on this pop-up while Bwb installs.</div>}
