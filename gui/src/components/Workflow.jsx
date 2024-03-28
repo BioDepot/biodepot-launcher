@@ -380,10 +380,10 @@ function Workflow(props) {
    const checkBwbDependencies = () => {
       if (props.hasDocker === false) {
          closeLaunchModal();
-         openDockerModal(true);
+         openDockerModal();
       } else if (props.hasBwb === false) {
          closeLaunchModal();
-         openBwbModal(true);
+         openBwbModal();
       } else {
          runOpenCommand();
          openInBrowser(); 
