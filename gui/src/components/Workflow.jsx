@@ -485,7 +485,7 @@ function Workflow(props) {
                </Button>
             </Modal.Footer>
          </Modal>
-         <Modal show={showBwbModal} onHide={closeDockerModal} backdrop="static" keyboard={false}>
+         <Modal show={showDockerModal} onHide={closeDockerModal} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
                <Modal.Title>Warning!</Modal.Title>
             </Modal.Header>
