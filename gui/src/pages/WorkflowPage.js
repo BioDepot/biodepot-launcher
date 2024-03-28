@@ -26,6 +26,8 @@ function WorkflowPage(props) {
             fileDetails={props.fileDetails}
             needsUpdates={props.needsUpdates}
             canRevert={props.canRevert}
+            hasBwb={props.hasBwb}
+            hasDocker={props.hasDocker}
          />
       ) : null;
    };

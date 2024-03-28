@@ -6,7 +6,7 @@ import {
 import { os, filesystem } from "@neutralinojs/lib";
 
 const useCheckRevert = () => {
-   const [needsUpdates, setNeedsUpdates] = useState(null);
+   const [needsUpdates, setNeedsUpdates] = useState([]);
 
    const getWorkflows = async () => {
       // Dict of <CATEGORY, List of installed workflows>

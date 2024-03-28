@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const useGetFileDetails = () => {
-    const [fileDetails, setFileDetails] = useState(null);
+    const [fileDetails, setFileDetails] = useState([]);
 
     const getFileDetails = async () => {
         const response = await fetch("https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/files.txt");

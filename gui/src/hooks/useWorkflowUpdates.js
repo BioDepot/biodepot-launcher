@@ -7,7 +7,7 @@ import { filesystem } from "@neutralinojs/lib";
 
 const useWorkflowUpdates = () => {
 
-   const [needsUpdates, setNeedsUpdates] = useState(null);
+   const [needsUpdates, setNeedsUpdates] = useState([]);
 
    const getWorkflows = async () => {
       // Dict of <CATEGORY, List of installed workflows>
