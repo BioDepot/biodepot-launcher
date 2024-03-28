@@ -79,32 +79,41 @@ function App() {
   canRevert = useCheckRevert();
 
   useEffect(() => { 
-    if (needsUpdates !== null && fileDetails !== null && canRevert !== null) {
+    if (needsUpdates !== null && fileDetails !== null&& canRevert !== null) {
       setLoadContent(true);
     }
   }, [needsUpdates, fileDetails, canRevert]);
 
+
   return (
     <main className="d-flex flex-nowrap h-100">
       { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} /> }
-        { loadContent ?
-        <Router>
-          <Sidebar
-            selectedPage={selectedPage} 
-            setSelectedPage={setSelectedPage} 
-          />
-          <Routes>
-            {fileDetails ? <Route path="/" exact element={<MarketplacePage fileDetails={fileDetails} />}></Route> : <Route path="/" ></Route> }
-            <Route 
-              path="/workflow-category" 
-              exact 
-              element={<WorkflowPage setSelectedDoc={setSelectedDoc} selectedPage={selectedPage} needsUpdates={needsUpdates} canRevert={canRevert} fileDetails={fileDetails}/>}
-            ></Route>
-          </Routes>
-        </Router> :
-        <div>
-          <text>Loading workflows, please wait a moment...</text>
-        </div> }
+      { loadContent ?
+      <Router>
+        <Sidebar
+          selectedPage={selectedPage} 
+          setSelectedPage={setSelectedPage} 
+        />
+        <Routes>
+          <Route path="/" exact element={<MarketplacePage fileDetails={fileDetails} />}></Route> : <Route path="/" ></Route>
+          <Route 
+            path="/workflow-category" 
+            exact 
+            element={<WorkflowPage
+                        hasBwb={hasBwb}
+                        hasDocker={hasDocker}
+                        setSelectedDoc={setSelectedDoc}
+                        selectedPage={selectedPage}
+                        needsUpdates={needsUpdates}
+                        canRevert={canRevert}
+                        fileDetails={fileDetails}
+                    />}
+          ></Route>
+        </Routes>
+      </Router> :
+      <div>
+        <text>Loading workflows, please wait a moment...</text>
+      </div> }
     </main>
   );
 };

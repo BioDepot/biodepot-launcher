@@ -52,6 +52,7 @@ export default (props) => {
          setShowMessage(false);
          setDisableClose(false);
          setShowComplete(true);
+         props.hasBwb = true;
       });
    };
 
@@ -95,12 +96,12 @@ export default (props) => {
             <Modal.Header closeButton>
                <Modal.Title>Bwb Install/Update</Modal.Title>
             </Modal.Header>}
-            <Modal.Body>
+               <Modal.Body>
                   <div>We are detecting that the latest version of Bwb is not on your system.  Verify that you aren't currently running Bwb 
                     and please update or install Bwb.</div>
                     {showMessage && <div><hr></hr>Installation will take several minutes... please stay on this pop-up while Bwb installs.</div>}
                     {showComplete && <div><hr></hr>Installation complete!</div>}
-            </Modal.Body>
+               </Modal.Body>
             <Modal.Footer>
                <Button disabled={disableClose} variant="secondary" onClick={handleBwbClose}>
                   Close
