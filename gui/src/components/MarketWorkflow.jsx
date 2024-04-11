@@ -80,7 +80,7 @@ function Workflow(props) {
    };
 
    const setHashState = async () => {
-      setHash((await os.execCommand(`scripts/hash.sh ${props.category}/${props.name}`)).stdOut);
+      setHash((await os.execCommand(`docker run -v ".":"/workspace/mnt" launcher-utils:1.0 hash /workspace/mnt/${props.category}/${props.name}`)).stdOut);
    };
 
    const createHashFile = async () => {

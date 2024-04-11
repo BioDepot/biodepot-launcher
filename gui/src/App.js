@@ -26,6 +26,7 @@ function App() {
   const [selectedPage, setSelectedPage] = useState("Workflow repository");
 
   const [allDependencies, setAllDependencies] = useState(true);
+  const [allChecks, setAllChecks] = useState(false);
   const [loadContent, setLoadContent] = useState(false);
 
   // Determines which dependencies are installed or not
@@ -43,6 +44,7 @@ function App() {
 
   useEffect(() => { 
     if (hasDocker !== null && hasAWS !== null && hasDM !== null && hasBwb !== null) {
+      setAllChecks(true);
       if (!hasDocker || !hasAWS || !hasDM || !hasBwb) {
         setAllDependencies(false);
       }
@@ -88,7 +90,7 @@ function App() {
   return (
     <main className="d-flex flex-nowrap h-100">
       { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} /> }
-      { loadContent ?
+      { allChecks && loadContent ?
       <Router>
         <Sidebar
           selectedPage={selectedPage} 

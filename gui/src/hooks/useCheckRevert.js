@@ -17,7 +17,7 @@ const useCheckRevert = () => {
          const ignoreNames = (x) => x !== ".." && x !== ".";
          const filteredEntries = folderEntries.filter((x) => x.type === DIRECTORY && ignoreNames(x.entry)).map((x) => x.entry);
          for (const name of filteredEntries) {
-            const hashOut = (await os.execCommand(`scripts/hash.sh ${category}/${name}`));
+            const hashOut = (await os.execCommand(`docker run -v ".":"/workspace/mnt" launcher-utils:1.0 hash /workspace/mnt/${category}/${name}`));
             const sha = hashOut.stdOut;
             output.push({
                category,

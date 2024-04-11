@@ -1,0 +1,19 @@
+Details:
+The tar package is installed from the Alpine 3.18 package repo.  Alpine 3.18 was chosen as its version of tar is 1.34 and GNU instead of BusyBox, which is used in Ubuntu.  There were some unexpected problems using the tar 1.35 version on that latest version of the Bash docker image.  This is why it was decided to use an older image of Alpine where Bash is manually installed.
+
+Build:
+	docker build -t launcher-utils:<version> <directory of files to add>
+
+Commands for using the verious utils:
+	For hash function:
+		docker run -v "<base installation location of launcher>":"/workspace/mnt" launcher-utils:<version> hash /workspace/mnt/<workflow folder type>/<workflow folder name>
+	For launch function:
+		docker run -v "<base installation location of launcher>":"/workspace/mnt" -v "~/.aws":"/workspace/aws" -v "<base installation location of launcher>/machine":"/root/.docker/machine" launcher-utils:<version> launch <region> <instance type> <workflow name> <workflow dir> <os Windows/Linux/Mac> <home directory>
+
+Testing:
+	Interchange the last line of the dockerfile:
+		ENTRYPOINT ["bash", "/workspace/interface.sh"]
+	with:
+		CMD ["bash"]
+	and the container can be started for testing with the following command:
+		docker run -it launcher-utils:<version>
