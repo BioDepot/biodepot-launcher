@@ -8,7 +8,7 @@ Commands for using the verious utils:
 	For hash function:
 		docker run -v "<base installation location of launcher>":"/workspace/mnt" launcher-utils:<version> hash /workspace/mnt/<workflow folder type>/<workflow folder name>
 	For launch function:
-		docker run -v "<base installation location of launcher>":"/workspace/mnt" -v "~/.aws":"/workspace/aws" -v "<base installation location of launcher>/machine":"/root/.docker/machine" launcher-utils:<version> launch <region> <instance type> <workflow name> <workflow dir> <os Windows/Linux/Mac> <home directory>
+		docker run -v "<base installation location of launcher>":"/workspace/mnt" -v "~/.aws":"/root/.aws" -v "<base installation location of launcher>/machine":"/root/.docker/machine" launcher-utils:<version> launch <region> <instance type> <workflow name> <workflow dir> <os Windows/Linux/Darwin> <home directory>
 
 Testing:
 	Interchange the last line of the dockerfile:

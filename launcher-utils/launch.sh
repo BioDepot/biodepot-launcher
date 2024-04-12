@@ -11,9 +11,6 @@ workflow_dir="$4"
 os="$5"
 home_dir="$6"
 
-export AWS_ACCESS_KEY_ID=$(cat /workspace/aws/credentials | grep aws_access_key_id | awk '{print $3}')
-export AWS_SECRET_ACCESS_KEY=$(cat /workspace/aws/credentials | grep aws_secret_access_key | awk '{print $3}')
-
 security_group="docker-machine"
 
 # AMI will likely change

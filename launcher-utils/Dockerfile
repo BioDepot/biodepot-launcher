@@ -2,8 +2,9 @@ FROM alpine:3.18
 RUN apk add --no-cache bash
 RUN apk add --no-cache tar
 RUN apk add --no-cache openssh
-RUN mkdir -p /workspace/aws
 RUN mkdir -p /workspace/mnt
+RUN mkdir -p /root/.docker/machine
+RUN mkdir -p /root/.aws
 COPY ./interface.sh /workspace
 RUN chmod +x /workspace/interface.sh
 COPY ./hash.sh /workspace
