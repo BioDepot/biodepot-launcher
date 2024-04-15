@@ -60,8 +60,9 @@ ip=$(/workspace/docker-machine ip $instance_name)
 config_location="/root/.docker/machine/machines/$instance_name/config.json"
 
 if [ $os == "Windows" ]; then
-    sed -i '/SSHKeyPath\|StorePath\|CertDir\|CaCertPath\|CaPrivateKeyPath\|ServerCertPath\|ServerKeyPath\|ClientKeyPath\|ClientCertPath\|StorePath/s/\//\\/g' $config_location
-    sed -i 's#\"\\root\\#\"'"$home_dir"'\\#g' $config_location
+    win_home_dir=$(echo $home_dir | sed 's#\\#\/g')
+    sed -i 's#\"\/root\/#\"'"$win_home_dir"'\/#g' $config_location
+    chmod -R 777 /root/.docker/machine/*
 else
     sed -i 's#\"\/root\/#\"'"$home_dir"'\/#g' $config_location
     chmod -R 777 /root/.docker/machine/*

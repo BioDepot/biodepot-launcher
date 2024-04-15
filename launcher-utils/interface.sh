@@ -7,8 +7,6 @@ param3=$4
 param4=$5
 param5=$6
 param6=$7
-param7=$8
-param8=$9
 
 if [ $script == "hash" ]; then
     /workspace/hash.sh $param1
