@@ -41,6 +41,7 @@ function App() {
   useEffect(() => { 
     if (hasDocker !== null && hasAWS !== null && hasBwb !== null) {
       setAllChecks(true);
+      alert("Allchecks: " + allChecks);
       if (!hasDocker || !hasAWS || !hasBwb) {
         setAllDependencies(false);
       }
@@ -79,6 +80,7 @@ function App() {
   useEffect(() => { 
     if (needsUpdates !== null && fileDetails !== null&& canRevert !== null) {
       setLoadContent(true);
+      alert("loadContent: " + loadContent);
     }
   }, [needsUpdates, fileDetails, canRevert]);
 
