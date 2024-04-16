@@ -39,9 +39,9 @@ function App() {
   hasBwb = useHasBwb();
 
   useEffect(() => { 
+    alert("docker: " + hasDocker + " aws: " + hasAWS + " bwb: " + hasBwb);
     if (hasDocker !== null && hasAWS !== null && hasBwb !== null) {
       setAllChecks(true);
-      alert("Allchecks: " + allChecks);
       if (!hasDocker || !hasAWS || !hasBwb) {
         setAllDependencies(false);
       }
@@ -80,7 +80,6 @@ function App() {
   useEffect(() => { 
     if (needsUpdates !== null && fileDetails !== null&& canRevert !== null) {
       setLoadContent(true);
-      alert("loadContent: " + loadContent);
     }
   }, [needsUpdates, fileDetails, canRevert]);
 
