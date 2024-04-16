@@ -14,7 +14,6 @@ import {
   CATEGORIES, 
 } from './constants';
 import useHasAWS from './hooks/useHasAWS';
-import useHasDM from './hooks/useHasDM';
 import useHasBwb from './hooks/useHasBwb';
 import useCheckRevert from './hooks/useCheckRevert';
 
@@ -36,20 +35,17 @@ function App() {
   let hasAWS = null;
   hasAWS = useHasAWS();
 
-  let hasDM = null;
-  hasDM = useHasDM();
-
   let hasBwb = null;
   hasBwb = useHasBwb();
 
   useEffect(() => { 
-    if (hasDocker !== null && hasAWS !== null && hasDM !== null && hasBwb !== null) {
+    if (hasDocker !== null && hasAWS !== null && hasBwb !== null) {
       setAllChecks(true);
-      if (!hasDocker || !hasAWS || !hasDM || !hasBwb) {
+      if (!hasDocker || !hasAWS || !hasBwb) {
         setAllDependencies(false);
       }
     }
-  }, [hasDocker, hasAWS, hasDM, hasBwb]);
+  }, [hasDocker, hasAWS, hasBwb]);
 
   // Ensures that we have a folder ready for each workflow category
   const runInit = async () => {
@@ -89,7 +85,7 @@ function App() {
 
   return (
     <main className="d-flex flex-nowrap h-100">
-      { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} /> }
+      { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasAWS={hasAWS} /> }
       { allChecks && loadContent ?
       <Router>
         <Sidebar

@@ -39,10 +39,6 @@ export default (props) => {
       await os.open('https://aws.amazon.com/cli/');
    };
 
-   const openDMPage = async () => {
-      await os.open('https://gitlab-docker-machine-downloads.s3.amazonaws.com/main/index.html');
-   };
-
    const getBwb = async () => {
       setShowMessage(true);
       setDisableInstall(true);
@@ -68,7 +64,6 @@ export default (props) => {
                {!props.hasDocker || !props.hasAWS || !props.hasDM ? <hr></hr> : null}
                {!props.hasDocker ? <div>Docker: Missing</div> : null}
                {!props.hasAWS ? <div>AWS CLI: Missing</div> : null}
-               {!props.hasDM ? <div>Docker Machine: Missing</div> : null}
             </Modal.Body>
             <Modal.Footer>
                <Button variant="secondary" onClick={handleClose}>
@@ -81,10 +76,6 @@ export default (props) => {
                {!props.hasAWS ? 
                   <Button variant="primary" onClick={openAWSPage}>
                      Get AWS CLI
-                  </Button> : null}
-               {!props.hasDM ? 
-                  <Button variant="primary" onClick={openDMPage}>
-                     Get Docker Machine
                   </Button> : null}
             </Modal.Footer>
          </Modal>
