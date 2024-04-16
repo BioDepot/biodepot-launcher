@@ -17,7 +17,14 @@ const useCheckRevert = () => {
          const ignoreNames = (x) => x !== ".." && x !== ".";
          const filteredEntries = folderEntries.filter((x) => x.type === DIRECTORY && ignoreNames(x.entry)).map((x) => x.entry);
          for (const name of filteredEntries) {
-            const hashOut = (await os.execCommand(`docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${category}/${name}`));
+            let hashOut = "";
+            if (window.NL_OS === "Windows") {
+               let pwd = (await os.execCommand(`$PWD`)).stdOut;
+               pwd = pwd.replace("\\", "\/");
+               hashOut = (await os.execCommand(`docker run -v ${pwd}:/workspace/mnt biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name}`)).stdOut;
+            } else {
+               hashOut = (await os.execCommand(`docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name}`)).stdOut;
+            }
             const sha = hashOut.stdOut;
             output.push({
                category,
