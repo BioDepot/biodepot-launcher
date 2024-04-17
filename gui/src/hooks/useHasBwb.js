@@ -14,11 +14,9 @@ const useHasBwb = () => {
 
     const checkForBwb = async () => {
         const hasDockerCommand = await os.execCommand('docker info');
-        alert("After Docker command");
 
         if (hasDockerCommand.exitCode === 0) {
             const hasBwbCommand = (await os.execCommand('docker images --format "{{.Repository}}" biodepot/bwb')).stdOut;
-            alert("After Bwb command");
 
             if (hasBwbCommand.replace(/(\r\n|\n|\r)/gm, "") === "biodepot/bwb") {
                 const localBwbDigest = (await os.execCommand(`docker inspect --format='{{index .RepoDigests 0}}' biodepot/bwb`)).stdOut.split('@')[1];
@@ -27,8 +25,10 @@ const useHasBwb = () => {
                 const hubBwbDigest = JSON.parse(hubBwbOut)['digest'];
 
                 if (localBwbDigest.replace(/(\r\n|\n|\r)/gm, "") === hubBwbDigest.replace(/(\r\n|\n|\r)/gm, "")) {
+                    alert("Bwb found");
                     setHasBwb(true);
                 } else {
+                    alert("Bwb not found");
                     setHasBwb(false);
                 }
             } else {
