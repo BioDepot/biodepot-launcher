@@ -28,7 +28,7 @@ const useHasBwb = () => {
                 alert("Step 4");
                 // alert(hubBwbOut + "");
 
-                const hubBwbDigest = JSON.parse(JSON.parse(hubBwbOut))['digest'];
+                const hubBwbDigest = hubBwbOut['digest'];
                 alert("Step 5");
 
                 if (localBwbDigest.trim() === hubBwbDigest.trim()) {
