@@ -18,13 +18,13 @@ const useHasBwb = () => {
         if (hasDockerCommand.exitCode === 0) {
             const hasBwbCommand = (await os.execCommand('docker images --format "{{.Repository}}" biodepot/bwb')).stdOut;
 
-            if (hasBwbCommand.replace(/(\r\n|\n|\r)/gm, "") === "biodepot/bwb") {
+            if (hasBwbCommand.trim() === "biodepot/bwb") {
                 const localBwbDigest = (await os.execCommand(`docker inspect --format='{{index .RepoDigests 0}}' biodepot/bwb`)).stdOut.split('@')[1];
-                const hubBwbOut = (await os.execCommand(`docker buildx imagetools inspect --format='{{json .Manifest}}' biodepot/bwb:latest`)).stdOut.replace(/(\r\n|\n|\r)/gm, "");
+                const hubBwbOut = (await os.execCommand(`docker buildx imagetools inspect --format='{{json .Manifest}}' biodepot/bwb:latest`)).stdOut.trim();
                 
                 const hubBwbDigest = JSON.parse(hubBwbOut)['digest'];
 
-                if (localBwbDigest.replace(/(\r\n|\n|\r)/gm, "") === hubBwbDigest.replace(/(\r\n|\n|\r)/gm, "")) {
+                if (localBwbDigest.trim() === hubBwbDigest.trim()) {
                     alert("Bwb found");
                     setHasBwb(true);
                 } else {
