@@ -30,6 +30,7 @@ const useHasBwb = () => {
 
                 const hubBwbDigest = hubBwbOut['digest'];
                 alert("Step 5");
+                alert(hubBwbDigest);
 
                 if (localBwbDigest.trim() === hubBwbDigest.trim()) {
                     alert("Bwb found");
