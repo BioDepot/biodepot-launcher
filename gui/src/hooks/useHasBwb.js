@@ -13,18 +13,23 @@ const useHasBwb = () => {
     const [hasBwb, setHasBwb] = useState(null);
 
     const checkForBwb = async () => {
+        alert("Step 0");
         const hasDockerCommand = await os.execCommand('docker info');
+
         alert("Step 1");
         if (hasDockerCommand.exitCode === 0) {
             const hasBwbCommand = (await os.execCommand('docker images --format "{{.Repository}}" biodepot/bwb')).stdOut;
+
             alert("Step 2");
             if (hasBwbCommand.trim() === "biodepot/bwb") {
                 const localBwbDigest = (await os.execCommand(`docker inspect --format='{{index .RepoDigests 0}}' biodepot/bwb`)).stdOut.split('@')[1];
                 alert("Step 3");
                 const hubBwbOut = (await os.execCommand(`docker buildx imagetools inspect --format='{{json .Manifest}}' biodepot/bwb:latest`)).stdOut.trim();
                 alert("Step 4");
+
                 const hubBwbDigest = JSON.parse(hubBwbOut)['digest'];
                 alert("Step 5");
+
                 if (localBwbDigest.trim() === hubBwbDigest.trim()) {
                     alert("Bwb found");
                     setHasBwb(true);
