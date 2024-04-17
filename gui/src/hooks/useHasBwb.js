@@ -26,11 +26,10 @@ const useHasBwb = () => {
                 alert("Step 3");
                 const hubBwbOut = (await os.execCommand(`docker buildx imagetools inspect --format='{{json .Manifest}}' biodepot/bwb:latest`)).stdOut.trim();
                 alert("Step 4");
-                // alert(hubBwbOut + "");
+                alert(hubBwbOut);
 
-                const hubBwbDigest = hubBwbOut['digest'];
+                const hubBwbDigest = JSON.parse(hubBwbOut)['digest'];
                 alert("Step 5");
-                alert(hubBwbDigest);
 
                 if (localBwbDigest.trim() === hubBwbDigest.trim()) {
                     alert("Bwb found");
