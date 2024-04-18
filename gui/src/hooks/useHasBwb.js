@@ -22,7 +22,7 @@ const useHasBwb = () => {
 
             alert("Step 2");
             if (hasBwbCommand.trim() === "biodepot/bwb") {
-                const localBwbDigest = (await os.execCommand(`docker inspect --format='{{index .RepoDigests 0}}' biodepot/bwb`)).stdOut.split('@')[1];
+                const localBwbDigest = (await os.execCommand('docker inspect --format="{{index .RepoDigests 0}}" biodepot/bwb')).stdOut.split('@')[1];
                 alert("Step 3");
                 const hubBwbOut = (await os.execCommand('docker buildx imagetools inspect --format="{{json .Manifest}}" biodepot/bwb:latest')).stdOut;
                 alert("Step 4");
