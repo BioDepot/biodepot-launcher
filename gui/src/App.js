@@ -42,7 +42,7 @@ function App() {
   const test = async () => {
     if (window.NL_OS === "Windows") {
       let pwd = (await os.execCommand('echo %cd%')).stdOut;
-      pwd = pwd.replace(/\\/g, '\\\\');
+      pwd = pwd.replace(/\\/g, '\/');
       alert(pwd);
     }
   }
