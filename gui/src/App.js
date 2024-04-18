@@ -40,11 +40,11 @@ function App() {
 
 
   const test = async () => {
-    if (window.NL_OS === "Windows") {
-      let pwd = (await os.execCommand('$PWD')).stdOut;
-      pwd = pwd.replace("\\", "\/");
-      alert(pwd);
-    }
+    // if (window.NL_OS === "Windows") {
+      // let pwd = (await os.execCommand('$PWD')).stdOut;
+      // pwd = pwd.replace("\\", "\/");
+      alert(window.NL_OS);
+    // }
   }
   
   test();
