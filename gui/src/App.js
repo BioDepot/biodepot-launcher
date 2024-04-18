@@ -38,8 +38,14 @@ function App() {
   let hasBwb = null;
   hasBwb = useHasBwb();
 
+
+  if (window.NL_OS === "Windows") {
+    let pwd = (os.execCommand(`$PWD`)).stdOut;
+    pwd = pwd.replace("\\", "\/");
+    alert(pwd);
+  }
+
   useEffect(() => { 
-    alert("docker: " + hasDocker + " aws: " + hasAWS + " bwb: " + hasBwb);
     if (hasDocker !== null && hasAWS !== null && hasBwb !== null) {
       setAllChecks(true);
       if (!hasDocker || !hasAWS || !hasBwb) {
