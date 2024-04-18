@@ -252,6 +252,7 @@ function Workflow(props) {
          let pwd = (await os.execCommand('echo %cd%')).stdOut;
          pwd = pwd.replace(/\\/g, '\/');
          setHash((await os.execCommand('docker run -v ' + pwd + ':/workspace/mnt biodepot/launcher-utils:1.0 "hash" /workspace/mnt/' + props.category + '/' + props.name)).stdOut);
+         alert(hash);
       } else {
          setHash((await os.execCommand(`docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name}`)).stdOut);
       }
@@ -259,6 +260,7 @@ function Workflow(props) {
 
    const createHashFile = async () => {
       if (window.NL_OS === "Windows") {
+         alert(hash);
          await os.execCommand('echo -n "' + hash + '" > .storage/' + props.category + '-' + props.name);
       } else {
          await os.execCommand(`echo -n "${hash}" > .storage/${props.category}-${props.name}`);
