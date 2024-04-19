@@ -83,8 +83,9 @@ function Workflow(props) {
       if (window.NL_OS === "Windows") {
          let pwd = (await os.execCommand('echo %cd%')).stdOut;
          pwd = pwd.replace(/\\/g, '\/');
-         alert(pwd);
-         setHash((await os.execCommand('docker run -v ' + pwd + ':/workspace/mnt biodepot/launcher-utils:1.0 "hash" /workspace/mnt/' + props.category + '/' + props.name)).stdOut);
+         const dockerHash = (await os.execCommand('docker run -v ' + pwd + ':/workspace/mnt biodepot/launcher-utils:1.0 "hash" /workspace/mnt/' + props.category + '/' + props.name)).stdOut;
+         alert(dockerHash);
+         setHash(dockerHash);
       } else {
          setHash((await os.execCommand(`docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name}`)).stdOut);
       }
