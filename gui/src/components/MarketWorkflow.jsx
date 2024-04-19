@@ -91,7 +91,9 @@ function Workflow(props) {
 
    const createHashFile = async () => {
       if (window.NL_OS === "Windows") {
-         await os.execCommand(`echo|set /p="${hash}" > .storage/${props.category}-${props.name}`);
+         let pwd = (await os.execCommand('echo %cd%')).stdOut;
+         pwd = pwd.replace(/\\/g, '\/');
+         await os.execCommand(`echo|set /p="${hash}" > ${pwd}/.storage/${props.category}-${props.name}`);
       } else {
          await os.execCommand(`echo -n "${hash}" > .storage/${props.category}-${props.name}`);
       }
