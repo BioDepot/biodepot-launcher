@@ -109,7 +109,7 @@ function Workflow(props) {
 
       if (window.NL_OS === "Windows") {
          let home = (await os.execCommand('echo %userprofile%')).stdOut;
-         homeAltered = home.replace(/\\/g, '\/');
+         let homeAltered = home.replace(/\\/g, '\/');
          output = await os.execCommand(`docker run -v .:/workspace/mnt -v ${homeAltered}/.aws:/workspace/aws launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${window.NL_OS}" "${home}"`);
       } else {
          output = await os.execCommand(`docker run -v ".":"/workspace/mnt" -v "$HOME/.aws":"/workspace/aws" launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${window.NL_OS}" "$HOME"`);
