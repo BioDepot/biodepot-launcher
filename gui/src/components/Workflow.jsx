@@ -17,7 +17,7 @@ import { FaBook, FaLaptopCode } from "react-icons/fa";
 import useHasDocu from '../hooks/useHasDocu';
 import { LAUNCH_COMMAND, DOCKER_PAGE_URL } from '../constants';
 import LaunchModal from './LaunchModal';
-import { os, filesystem, window } from "@neutralinojs/lib";
+import { os, filesystem } from "@neutralinojs/lib";
 
 
 function Workflow(props) {
@@ -57,8 +57,6 @@ function Workflow(props) {
 
    const [region, setRegion] = useState(initRegion);
    const [instance, setInstance] = useState(initInstance);
-
-   const [hash, setHash] = useState('');
 
    const changeRegion = (e) => {
       setRegion(e.target.value)
@@ -107,17 +105,17 @@ function Workflow(props) {
       
       let output = "";
 
-      if (window.NL_OS === "Windows") {
+      const osType = window.NL_OS;
+
+      if (osType === "Windows") {
          let home = (await os.execCommand('echo %userprofile%')).stdOut.trim();
          let homeAltered = home.replace(/\\/g, '\/');
-         alert(`docker run -v .:/workspace/mnt -v ${homeAltered}/.aws:/workspace/aws biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "Windows" "${home}"`);
-         // output = await os.execCommand(`docker run -v .:/workspace/mnt -v ${homeAltered}/.aws:/workspace/aws biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
+         output = await os.execCommand(`docker run -v .:/workspace/mnt -v ${homeAltered}/.aws:/root/.aws -v ${homeAltered}/.docker/machine:/root/.docker/machine biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
       } else {
          let home = (await os.execCommand(`echo $HOME`)).stdOut.trim();
-         alert(`docker run -v ".":"/workspace/mnt" -v "${home}/.aws":"/workspace/aws" biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "nix" "${home}"`);
-         // output = await os.execCommand(`docker run -v ".":"/workspace/mnt" -v "${home}/.aws":"/workspace/aws" biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
+         output = await os.execCommand(`docker run -v ".":"/workspace/mnt" -v "${home}/.aws":"/root/.aws" -v "${home}/.docker/machine":"/root/.docker/machine" biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
       }
-      // await os.open("http://" + output.stdOut); 
+      await os.open("http://" + output.stdOut); 
       
       setShow(false);
    };
