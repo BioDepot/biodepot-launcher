@@ -106,16 +106,15 @@ function Workflow(props) {
       setShowMessage(true);
       
       let output = "";
-      const osType = window.NL_OS;
 
-      if (osType === "Windows") {
+      if (window.NL_OS === "Windows") {
          let home = (await os.execCommand('echo %userprofile%')).stdOut.trim();
          let homeAltered = home.replace(/\\/g, '\/');
-         alert(`docker run -v .:/workspace/mnt -v ${homeAltered}/.aws:/workspace/aws biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
+         alert(`docker run -v .:/workspace/mnt -v ${homeAltered}/.aws:/workspace/aws biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "Windows" "${home}"`);
          // output = await os.execCommand(`docker run -v .:/workspace/mnt -v ${homeAltered}/.aws:/workspace/aws biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
       } else {
          let home = (await os.execCommand(`echo $HOME`)).stdOut.trim();
-         alert(`docker run -v ".":"/workspace/mnt" -v "${home}/.aws":"/workspace/aws" biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
+         alert(`docker run -v ".":"/workspace/mnt" -v "${home}/.aws":"/workspace/aws" biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "nix" "${home}"`);
          // output = await os.execCommand(`docker run -v ".":"/workspace/mnt" -v "${home}/.aws":"/workspace/aws" biodepot/launcher-utils:1.0 "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
       }
       // await os.open("http://" + output.stdOut); 
