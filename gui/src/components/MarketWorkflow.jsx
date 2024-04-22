@@ -17,7 +17,6 @@ import { filesystem, os } from "@neutralinojs/lib";
 
 function Workflow(props) {
    const [isLoading, setIsLoading] = useState(false);
-   const [hash, setHash] = useState('');
 
    /**
     * Renders the tooltip to display for worklows that havent installed prompting the user to click on it to install it

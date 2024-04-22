@@ -23,7 +23,7 @@ const useCheckRevert = () => {
             } else {
                hashOut = (await os.execCommand(`docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${category}/${name}`)).stdOut;
             }
-            const sha = hashOut.stdOut;
+            const sha = hashOut;
             output.push({
                category,
                name,
@@ -39,12 +39,11 @@ const useCheckRevert = () => {
    };
 
    const getCompareHashes = async () => {
-      const installedWorkflows = await getWorkflows(); 
+      const installedWorkflows = await getWorkflows();
       const output = [];
 
       for (let workflow of installedWorkflows) {
          const savedHash = await getSavedHash(workflow.category, workflow.name);
-         
          if (workflow.sha.trim() !== savedHash.trim()) {
             output.push(workflow);
          }
