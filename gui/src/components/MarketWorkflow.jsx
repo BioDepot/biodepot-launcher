@@ -75,43 +75,16 @@ function Workflow(props) {
          console.log(e);
       } finally {
          setIsLoading(false);
-         setHash('');
       }
    };
 
    const setHashState = async () => {
-      // if (window.NL_OS === "Windows") {
-      //    let pwd = (await os.execCommand('echo %cd%')).stdOut;
-      //    pwd = pwd.replace(/\\/g, '\/');
-      //    setHash((await os.execCommand(`docker run -v ${pwd}:/workspace/mnt biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name}`)).stdOut);
-      // } else {
-      //    setHash((await os.execCommand(`docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name}`)).stdOut);
-      // }
       if (window.NL_OS === "Windows") {
-         let pwd = (await os.execCommand('echo %cd%')).stdOut;
-         pwd = pwd.replace(/\\/g, '\/');
          await os.execCommand(`docker run -v .:/workspace/mnt biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
       } else {
-         setHash((await os.execCommand(`docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name}`)).stdOut);
+         await os.execCommand(`docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
       }
    };
-
-   const createHashFile = async () => {
-      if (window.NL_OS === "Windows") {
-         let pwd = (await os.execCommand('echo %cd%')).stdOut;
-         pwd = pwd.replace(/\\/g, '\/');
-         alert(hash);
-         await os.execCommand(`echo|set /p="${hash}" > ${pwd}/.storage/${props.category}-${props.name}`);
-      } else {
-         await os.execCommand(`echo -n "${hash}" > .storage/${props.category}-${props.name}`);
-      }
-   };
-
-   useEffect(() => {
-      if (hash !== '') {
-         createHashFile();
-      }
-   }, [hash]);
 
    /**
     * Renders the install button for the workflow

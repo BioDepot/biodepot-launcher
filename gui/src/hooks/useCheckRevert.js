@@ -19,9 +19,7 @@ const useCheckRevert = () => {
          for (const name of filteredEntries) {
             let hashOut = "";
             if (window.NL_OS === "Windows") {
-               let pwd = (await os.execCommand('echo %cd%')).stdOut;
-               pwd = pwd.replace(/\\/g, '\/');
-               hashOut = (await os.execCommand(`docker run -v ${pwd}:/workspace/mnt biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${category}/${name}`)).stdOut;
+               hashOut = (await os.execCommand(`docker run -v .:/workspace/mnt biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${category}/${name}`)).stdOut;
             } else {
                hashOut = (await os.execCommand(`docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${category}/${name}`)).stdOut;
             }
