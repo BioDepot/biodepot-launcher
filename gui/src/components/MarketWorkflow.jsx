@@ -93,6 +93,7 @@ function Workflow(props) {
       if (window.NL_OS === "Windows") {
          let pwd = (await os.execCommand('echo %cd%')).stdOut;
          pwd = pwd.replace(/\\/g, '\/');
+         alert(hash);
          await os.execCommand(`echo|set /p="${hash}" > ${pwd}/.storage/${props.category}-${props.name}`);
       } else {
          await os.execCommand(`echo -n "${hash}" > .storage/${props.category}-${props.name}`);
