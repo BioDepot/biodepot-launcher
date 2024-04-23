@@ -16,6 +16,7 @@ import {
 import useHasAWS from './hooks/useHasAWS';
 import useHasBwb from './hooks/useHasBwb';
 import useCheckRevert from './hooks/useCheckRevert';
+import useHasUtils from './hooks/useHasUtils';
 
 function App() {
   // The contents of the currently selected documentation
@@ -38,14 +39,17 @@ function App() {
   let hasBwb = null;
   hasBwb = useHasBwb();
 
+  let hasUtils = null;
+  hasUtils = useHasUtils();
+
   useEffect(() => { 
-    if (hasDocker !== null && hasAWS !== null && hasBwb !== null) {
+    if (hasDocker !== null && hasAWS !== null && hasBwb !== null && hasUtils !== null) {
       setAllChecks(true);
-      if (!hasDocker || !hasAWS || !hasBwb) {
+      if (!hasDocker || !hasBwb || !hasUtils) {
         setAllDependencies(false);
       }
     }
-  }, [hasDocker, hasAWS, hasBwb]);
+  }, [hasDocker, hasAWS, hasBwb, hasUtils]);
 
   // Ensures that we have a folder ready for each workflow category
   const runInit = async () => {
@@ -85,7 +89,7 @@ function App() {
 
   return (
     <main className="d-flex flex-nowrap h-100">
-      { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasAWS={hasAWS} /> }
+      { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasUtils={hasUtils} /> }
       { allChecks && loadContent ?
       <Router>
         <Sidebar
