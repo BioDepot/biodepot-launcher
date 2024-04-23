@@ -475,7 +475,7 @@ function Workflow(props) {
             </Modal.Body>
             <Modal.Footer>
                <Button variant="primary" onClick={openAWSPage}>
-                  Get Docker
+                  Get AWS CLI
                </Button>
                <Button variant="primary" onClick={() => closeAWSModal()}>
                   Cancel
