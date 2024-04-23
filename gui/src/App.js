@@ -102,8 +102,7 @@ function App() {
             path="/workflow-category" 
             exact 
             element={<WorkflowPage
-                        hasBwb={hasBwb}
-                        hasDocker={hasDocker}
+                        hasAWS={hasAWS}
                         setSelectedDoc={setSelectedDoc}
                         selectedPage={selectedPage}
                         needsUpdates={needsUpdates}

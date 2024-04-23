@@ -15,7 +15,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { FaBook, FaLaptopCode } from "react-icons/fa";
 import useHasDocu from '../hooks/useHasDocu';
-import { LAUNCH_COMMAND, DOCKER_PAGE_URL } from '../constants';
+import { LAUNCH_COMMAND } from '../constants';
 import LaunchModal from './LaunchModal';
 import { os, filesystem } from "@neutralinojs/lib";
 
@@ -39,18 +39,9 @@ function Workflow(props) {
    const openRevertModal = () => setShowRevert(true);
    const closeRevertModal = () => setShowRevert(false);
 
-   const [showDockerModal, setShowDockerModal] = useState(false);
-   const openDockerModal = () => setShowDockerModal(true);
-   const closeDockerModal = () => setShowDockerModal(false);
-
-   const [showBwbModal, setShowBwbModal] = useState(false);
-   const openBwbModal = () => setShowBwbModal(true);
-   const closeBwbModal = () => setShowBwbModal(false);
-
-   const [disableInstall, setDisableInstall] = useState(false);
-   const [disableClose, setDisableClose] = useState(false);
-   const [showInstallationMessage, setShowInstallationMessage] = useState(false);
-   const [showComplete, setShowComplete] = useState(false);
+   const [showAWSModal, setShowAWSModal] = useState(false);
+   const openAWSModal = () => setShowAWSModal(true);
+   const closeAWSModal = () => setShowAWSModal(false);
 
    let initRegion = "";
    let initInstance = "";
@@ -375,34 +366,22 @@ function Workflow(props) {
       document.getElementById(props.name + "-launch").className = "hover-off";
    }
 
-   const openDockerPage = async () => {
-      await os.open(DOCKER_PAGE_URL);
-   };
-
-   const checkBwbDependencies = () => {
-      if (props.hasDocker === false) {
-         closeLaunchModal();
-         openDockerModal();
-      } else if (props.hasBwb === false) {
-         closeLaunchModal();
-         openBwbModal();
-      } else {
-         runOpenCommand();
-         openInBrowser(); 
-      }
+   const openAWSPage = async () => {
+      await os.open("https://aws.amazon.com/cli/");
    }
 
-   const installBwb = async () => {
-      setShowInstallationMessage(true);
-      setDisableInstall(true);
-      setDisableClose(true);
-
-      await os.execCommand(`docker pull biodepot/bwb:latest`).then(() => {
-         setShowInstallationMessage(false);
-         setDisableClose(false);
-         setShowComplete(true);
-         props.hasBwb = true;
-      });
+   const checkForAWS = () => {
+      if (props.hasAWS === false) {
+         closeLaunchModal();
+         openAWSModal();
+      } else {
+         setShowLaunchModal(false);
+         setShowMessage(false);
+         setDisableLaunch(false);
+         setRegion("");
+         setInstance("");
+         setShow(true);
+      }
    }
 
    return (
@@ -410,9 +389,9 @@ function Workflow(props) {
          <LaunchModal 
             show={showLaunchModal} 
             handleClose={closeLaunchModal} 
-            inBrowser={() => { checkBwbDependencies(); }} 
+            inBrowser={() => { runOpenCommand(); openInBrowser(); }} 
             onGitPod={() => { openGitPod(); }}
-            onAWS={() => { setShowLaunchModal(false); setShowMessage(false); setDisableLaunch(false); setRegion(""); setInstance(""); setShow(true); }}
+            onAWS={() => { checkForAWS(); }}
          />
 
          <td>{props.name}</td>
@@ -487,40 +466,18 @@ function Workflow(props) {
                </Button>
             </Modal.Footer>
          </Modal>
-         <Modal show={showDockerModal} onHide={closeDockerModal} backdrop="static" keyboard={false}>
+         <Modal show={showAWSModal} onHide={closeAWSModal} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
                <Modal.Title>Warning!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-               <span>The workflow cannot be launched in a browser without Docker.  Please close the Launcher and install Docker.</span>
+               <span>The workflow cannot be launched without AWS CLI.  Please close the Launcher and install AWS CLI.</span>
             </Modal.Body>
             <Modal.Footer>
-               <Button variant="primary" onClick={openDockerPage}>
+               <Button variant="primary" onClick={openAWSPage}>
                   Get Docker
                </Button>
-               <Button variant="primary" onClick={() => closeDockerModal()}>
-                  Cancel
-               </Button>
-            </Modal.Footer>
-         </Modal>
-         <Modal show={showBwbModal} onHide={closeBwbModal} backdrop="static" keyboard={false}>
-            {disableClose ? 
-            <Modal.Header>
-               <Modal.Title>Warning!</Modal.Title>
-            </Modal.Header> : 
-            <Modal.Header closeButton>
-               <Modal.Title>Warning!</Modal.Title>
-            </Modal.Header>}
-            <Modal.Body>
-               <span>The workflow cannot be launched in a browser without Bwb.  Please install Bwb.</span>
-               {showInstallationMessage && <div><hr></hr>Installation will take several minutes... please stay on this pop-up while Bwb installs.</div>}
-               {showComplete && <div><hr></hr>Installation complete!  Please relaunch the workflow.</div>}
-            </Modal.Body>
-            <Modal.Footer>
-               <Button disabled={disableInstall} variant="primary" onClick={installBwb}>
-                  Get Bwb
-               </Button>
-               <Button disabled={disableClose} variant="primary" onClick={() => closeBwbModal()}>
+               <Button variant="primary" onClick={() => closeAWSModal()}>
                   Cancel
                </Button>
             </Modal.Footer>
