@@ -67,7 +67,7 @@ export default (props) => {
    }
 
    const closeApp = async () => {
-      await Neutralino.app.exit();
+      await app.exit();
    }
 
    return (
