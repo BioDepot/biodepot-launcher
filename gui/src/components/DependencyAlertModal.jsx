@@ -86,10 +86,9 @@ export default (props) => {
                <Button variant="secondary" onClick={closeApp}>
                   Exit
                </Button>
-               {!props.hasDocker ? 
-                  <Button variant="primary" onClick={openDockerPage}>
-                     Get Docker
-                  </Button> : null}
+               <Button variant="primary" onClick={openDockerPage}>
+                  Get Docker
+               </Button>
             </Modal.Footer>
          </Modal>
          <Modal show={showBwb} onHide={handleBwbClose} backdrop="static" keyboard={false}>
@@ -101,27 +100,27 @@ export default (props) => {
             <Modal.Header closeButton>
                <Modal.Title>Bwb Install/Update</Modal.Title>
             </Modal.Header>}
-               <Modal.Body>
-                  <div>We are detecting that the latest version of Bwb is not on your system.  Verify that you aren't currently running Bwb 
-                    and please update or install Bwb.</div>
-                    {showBwbMessage && <div><hr></hr>Installation will take several minutes... please stay on this pop-up while Bwb installs.</div>}
-                    {showBwbComplete && <div><hr></hr>Installation complete!</div>}
-               </Modal.Body>
+            <Modal.Body>
+               <div>We are detecting that the latest version of Bwb is not on your system.  Verify that you aren't currently running Bwb 
+                  and please update or install Bwb.</div>
+                  {showBwbMessage && <div><hr></hr>Installation will take several minutes... please stay on this pop-up while Bwb installs.</div>}
+                  {showBwbComplete && <div><hr></hr>Installation complete!</div>}
+            </Modal.Body>
+            {props.hasBwb ? 
             <Modal.Footer>
-               {props.hasBwb ? 
                <Button disabled={disableClose} variant="secondary" onClick={handleBwbClose}>
                   Close
                </Button> 
-               :
-               <div>
-                  <Button disabled={disableClose} variant="secondary" onClick={closeApp}>
-                     Exit
-                  </Button>
-                  <Button disabled={disableInstall} variant="primary" onClick={getBwb}>
-                     Get Bwb
-                  </Button>
-               </div>}
             </Modal.Footer>
+            :
+            <Modal.Footer>
+               <Button disabled={disableClose} variant="secondary" onClick={closeApp}>
+                  Exit
+               </Button>
+               <Button disabled={disableInstall} variant="primary" onClick={getBwb}>
+                  Get Bwb
+               </Button>
+            </Modal.Footer>}
          </Modal>
          <Modal show={showUitls} onHide={handleUtilsClose} backdrop="static" keyboard={false}>
             {disableClose ? 
@@ -132,28 +131,28 @@ export default (props) => {
             <Modal.Header closeButton>
                <Modal.Title>Launcher Utils Install</Modal.Title>
             </Modal.Header>}
-               <Modal.Body>
-                  <div>
-                     The necessary Launcher utilities image is not present on your system.  It is necessary for the Launcher.  Please download now.
-                  </div>
-                    {showUtilsMessage && <div><hr></hr>Installation will take only a moment...</div>}
-                    {showUtilsComplete && <div><hr></hr>Installation complete!</div>}
-               </Modal.Body>
+            <Modal.Body>
+               <div>
+                  The necessary Launcher utilities image is not present on your system.  It is necessary for the Launcher.  Please download now.
+               </div>
+                  {showUtilsMessage && <div><hr></hr>Installation will take only a moment...</div>}
+                  {showUtilsComplete && <div><hr></hr>Installation complete!</div>}
+            </Modal.Body>
+            {props.hasUtils ? 
             <Modal.Footer>
-               {props.hasUtils ? 
                <Button disabled={disableClose} variant="secondary" onClick={handleUtilsClose}>
                   Close
                </Button>
-               :
-               <div>
-                  <Button disabled={disableClose} variant="secondary" onClick={closeApp}>
-                     Exit
-                  </Button>
-                  <Button disabled={disableInstall} variant="primary" onClick={getUtils}>
-                     Get Utils
-                  </Button>
-               </div>}
             </Modal.Footer>
+            :
+            <Modal.Footer>
+               <Button disabled={disableClose} variant="secondary" onClick={closeApp}>
+                  Exit
+               </Button>
+               <Button disabled={disableInstall} variant="primary" onClick={getUtils}>
+                  Get Utils
+               </Button>
+            </Modal.Footer>}
          </Modal>
       </div>
   );
