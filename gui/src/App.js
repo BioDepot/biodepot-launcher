@@ -29,6 +29,8 @@ function App() {
   const [allChecks, setAllChecks] = useState(false);
   const [loadContent, setLoadContent] = useState(false);
 
+  const [runInitOnce, setRunInitOnce] = useState(false);
+
   // Determines which dependencies are installed or not
   let hasDocker = null;
   hasDocker = useHasDocker();
@@ -66,10 +68,13 @@ function App() {
     if (!dirEntriesByName.includes('.storage')) {
       await os.execCommand('mkdir .storage').catch((e) => console.log(e));
     }
+    setRunInitOnce(true);
   };
 
-  runInit();
-
+  if (!runInitOnce) {
+    runInit();
+  }
+  
   // Gathers which workflows have an update
   let needsUpdates = null;
   needsUpdates = useWorkflowUpdates();
