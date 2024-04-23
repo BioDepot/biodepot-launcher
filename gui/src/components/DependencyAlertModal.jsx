@@ -66,6 +66,10 @@ export default (props) => {
       });
    }
 
+   const closeApp = async () => {
+      await Neutralino.app.exit();
+   }
+
    return (
       <div data-backdrop="static">
          <Modal show={show} backdrop="static" keyboard={false}>
@@ -79,7 +83,7 @@ export default (props) => {
                </div>
             </Modal.Body>
             <Modal.Footer>
-               <Button variant="secondary" onClick={app.exit}>
+               <Button variant="secondary" onClick={closeApp}>
                   Exit
                </Button>
                {!props.hasDocker ? 
@@ -109,12 +113,14 @@ export default (props) => {
                   Close
                </Button> 
                :
-               <Button disabled={disableClose} variant="secondary" onClick={app.exit}>
-                  Exit
-               </Button>}
-               <Button disabled={disableInstall} variant="primary" onClick={getBwb}>
-                  Get Bwb
-               </Button>
+               <div>
+                  <Button disabled={disableClose} variant="secondary" onClick={closeApp}>
+                     Exit
+                  </Button>
+                  <Button disabled={disableInstall} variant="primary" onClick={getBwb}>
+                     Get Bwb
+                  </Button>
+               </div>}
             </Modal.Footer>
          </Modal>
          <Modal show={showUitls} onHide={handleUtilsClose} backdrop="static" keyboard={false}>
@@ -139,12 +145,14 @@ export default (props) => {
                   Close
                </Button>
                :
-               <Button disabled={disableClose} variant="secondary" onClick={app.exit}>
-                  Exit
-               </Button>}
-               <Button disabled={disableInstall} variant="primary" onClick={getUtils}>
-                  Get Bwb
-               </Button>
+               <div>
+                  <Button disabled={disableClose} variant="secondary" onClick={closeApp}>
+                     Exit
+                  </Button>
+                  <Button disabled={disableInstall} variant="primary" onClick={getUtils}>
+                     Get Utils
+                  </Button>
+               </div>}
             </Modal.Footer>
          </Modal>
       </div>
