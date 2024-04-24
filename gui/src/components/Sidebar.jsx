@@ -60,7 +60,7 @@ function Sidebar(props) {
             </SidebarItem>
          </Link>
          <hr></hr>
-         <span className="fs-4 mb-1">Installed Workflows</span>
+         <span className="fs-5 mb-1">Installed Workflows</span>
          <ul className="nav nav-pills flex-column ml-2">
             { renderCategories() }
          </ul>
