@@ -41,7 +41,7 @@ function Sidebar(props) {
             <img src={pic} className="w-50" alt=""></img>
          </Link>
          <hr></hr>
-         <Link to="/" className="sidebar-link">
+         <Link to="/" className="sidebar-link flex-column">
             <SidebarItem 
                name="Workflow repository" 
                setSelected={props.setSelectedPage} 
@@ -53,7 +53,7 @@ function Sidebar(props) {
          <hr></hr>
          <Link 
             to="/" 
-            className="sidebar-link" 
+            className="sidebar-link flex-column" 
             onClick={window.location.reload}
          >
             <SidebarItem name="Reload">
@@ -66,13 +66,13 @@ function Sidebar(props) {
          </ul>
          <hr></hr>
          <ul className="nav nav-pills flex-column ml-2">
-            <li key="Bwb Documentation" className="nav-link text-white border mb-3 sidebar-nav-item sidebar-link" onClick={openBwbDocs}>
-               Bwb Documentation
+            <li key="Bwb Docs" className="nav-link text-white border mb-3 sidebar-nav-item sidebar-link" onClick={openBwbDocs}>
+               Bwb Docs
             </li>
          </ul>
          <ul className="nav nav-pills flex-column ml-2">
-            <li key="GitPod Documentation" className="nav-link text-white border mb-3 sidebar-nav-item sidebar-link" onClick={openGitPodDocs}>
-               GitPod Documentation
+            <li key="GitPod Docs" className="nav-link text-white border mb-3 sidebar-nav-item sidebar-link" onClick={openGitPodDocs}>
+               GitPod Docs
             </li>
          </ul>
       </div>
