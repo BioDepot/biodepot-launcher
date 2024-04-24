@@ -3,7 +3,7 @@ const SidebarItem = (props) => {
    return (
       <div 
          id={selected} 
-         className="fs-5 border rounded p-2 mb-3 d-flex flex-left align-items-center sidebar-nav-item sidebar-link"
+         className="border rounded p-2 mb-3 d-flex flex-left align-items-center sidebar-nav-item sidebar-link"
          onClick={() => props.setSelected(props.name)}
       >
          { props.children }
