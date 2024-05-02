@@ -80,9 +80,9 @@ function Workflow(props) {
 
    const setHashState = async () => {
       if (window.NL_OS === "Windows") {
-         await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
+         await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
       } else {
-         await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
+         await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
       }
    };
 

@@ -57,7 +57,7 @@ export default (props) => {
       setDisableInstall(true);
       setDisableClose(true);
 
-      await os.execCommand(`docker pull biodepot/launcher-utils:1.0`).then(() =>{
+      await os.execCommand(`docker pull biodepot/launcher-utils:latest`).then(() =>{
          setUtilsShowMessage(false);
          setDisableClose(false);
          setUtilsShowComplete(true);

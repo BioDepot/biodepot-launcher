@@ -11,8 +11,8 @@ const useHasUtils = () => {
             const hasUtilsCommand = (await os.execCommand('docker images --format "{{.Repository}}" biodepot/launcher-utils')).stdOut;
 
             if (hasUtilsCommand.trim() === "biodepot/launcher-utils") {
-                const localUtilsDigest = (await os.execCommand('docker inspect --format="{{index .RepoDigests 0}}" biodepot/launcher-utils:1.0')).stdOut.split('@')[1];
-                const hubUtilsOut = (await os.execCommand('docker buildx imagetools inspect --format="{{json .Manifest}}" biodepot/launcher-utils:1.0')).stdOut;
+                const localUtilsDigest = (await os.execCommand('docker inspect --format="{{index .RepoDigests 0}}" biodepot/launcher-utils:latest')).stdOut.split('@')[1];
+                const hubUtilsOut = (await os.execCommand('docker buildx imagetools inspect --format="{{json .Manifest}}" biodepot/launcher-utils:latest')).stdOut;
 
                 const hubUtilsDigest = JSON.parse(hubUtilsOut)['digest'];
 
