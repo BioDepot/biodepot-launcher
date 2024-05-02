@@ -64,7 +64,8 @@ function Workflow(props) {
          }
 
          for (let file of files) {
-            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
+            const cleanedFileName = file.replaceAll('#', '%23')
+            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${cleanedFileName}`);
          }
 
          setHashState();
