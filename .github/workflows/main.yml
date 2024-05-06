@@ -37,8 +37,12 @@ jobs:
       - name: Package up binaries, install scripts, and resources.neu
         run: |
           mkdir binaries
-          cp bin/* binaries/
-          chmod +x binaries/neu*
+          cp bin/neutralino-linux_x64 binaries/
+          cp bin/neutralino-mac_arm64 binaries/
+          cp bin/neutralino-win_x64.exe binaries/
+          cp bin/WebView2Loader.dll binaries/
+          chmod +x binaries/neutralino-linux_x64
+          chmod +x binaries/neutralino-mac_arm64
           cp -r dm_install_scripts/ binaries/
           cp resources.neu binaries/
           zip -r binaries.zip binaries
