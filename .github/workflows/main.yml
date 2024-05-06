@@ -34,12 +34,11 @@ jobs:
           cp ../neutralino.config.json .
           cd ..
           asar pack ./tmp resources.neu
-      - name: Package up binaries, scripts, install scripts, and resources.neu
+      - name: Package up binaries, install scripts, and resources.neu
         run: |
           mkdir binaries
           cp bin/* binaries/
           chmod +x binaries/neu*
-          cp -r scripts/ binaries/
           cp -r dm_install_scripts/ binaries/
           cp resources.neu binaries/
           zip -r binaries.zip binaries
