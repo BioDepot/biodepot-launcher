@@ -36,6 +36,7 @@ jobs:
           asar pack ./tmp resources.neu
       - name: Package up binaries, install scripts, and resources.neu
         run: |
+          rm binaries.zip
           mkdir binaries
           cp bin/neutralino-linux_x64 binaries/
           cp bin/neutralino-mac_arm64 binaries/
