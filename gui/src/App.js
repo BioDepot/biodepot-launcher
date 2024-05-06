@@ -14,9 +14,9 @@ import {
   CATEGORIES, 
 } from './constants';
 import useHasAWS from './hooks/useHasAWS';
-import useHasDM from './hooks/useHasDM';
 import useHasBwb from './hooks/useHasBwb';
 import useCheckRevert from './hooks/useCheckRevert';
+import useHasUtils from './hooks/useHasUtils';
 
 function App() {
   // The contents of the currently selected documentation
@@ -26,7 +26,10 @@ function App() {
   const [selectedPage, setSelectedPage] = useState("Workflow repository");
 
   const [allDependencies, setAllDependencies] = useState(true);
+  const [allChecks, setAllChecks] = useState(false);
   const [loadContent, setLoadContent] = useState(false);
+
+  const [runInitOnce, setRunInitOnce] = useState(false);
 
   // Determines which dependencies are installed or not
   let hasDocker = null;
@@ -35,19 +38,20 @@ function App() {
   let hasAWS = null;
   hasAWS = useHasAWS();
 
-  let hasDM = null;
-  hasDM = useHasDM();
-
   let hasBwb = null;
   hasBwb = useHasBwb();
 
+  let hasUtils = null;
+  hasUtils = useHasUtils();
+
   useEffect(() => { 
-    if (hasDocker !== null && hasAWS !== null && hasDM !== null && hasBwb !== null) {
-      if (!hasDocker || !hasAWS || !hasDM || !hasBwb) {
+    if (hasDocker !== null && hasAWS !== null && hasBwb !== null && hasUtils !== null) {
+      setAllChecks(true);
+      if (!hasDocker || !hasBwb || !hasUtils) {
         setAllDependencies(false);
       }
     }
-  }, [hasDocker, hasAWS, hasDM, hasBwb]);
+  }, [hasDocker, hasAWS, hasBwb, hasUtils]);
 
   // Ensures that we have a folder ready for each workflow category
   const runInit = async () => {
@@ -64,10 +68,13 @@ function App() {
     if (!dirEntriesByName.includes('.storage')) {
       await os.execCommand('mkdir .storage').catch((e) => console.log(e));
     }
+    setRunInitOnce(true);
   };
 
-  runInit();
-
+  if (!runInitOnce) {
+    runInit();
+  }
+  
   // Gathers which workflows have an update
   let needsUpdates = null;
   needsUpdates = useWorkflowUpdates();
@@ -87,8 +94,8 @@ function App() {
 
   return (
     <main className="d-flex flex-nowrap h-100">
-      { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasAWS={hasAWS} hasDM={hasDM} /> }
-      { loadContent ?
+      { allDependencies ? null : <DependencyAlertModal hasBwb={hasBwb} hasDocker={hasDocker} hasUtils={hasUtils} /> }
+      { allChecks && loadContent ?
       <Router>
         <Sidebar
           selectedPage={selectedPage} 
@@ -100,8 +107,7 @@ function App() {
             path="/workflow-category" 
             exact 
             element={<WorkflowPage
-                        hasBwb={hasBwb}
-                        hasDocker={hasDocker}
+                        hasAWS={hasAWS}
                         setSelectedDoc={setSelectedDoc}
                         selectedPage={selectedPage}
                         needsUpdates={needsUpdates}

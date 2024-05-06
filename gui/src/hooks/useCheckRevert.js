@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { 
    CATEGORIES, 
    DIRECTORY,
@@ -17,8 +17,13 @@ const useCheckRevert = () => {
          const ignoreNames = (x) => x !== ".." && x !== ".";
          const filteredEntries = folderEntries.filter((x) => x.type === DIRECTORY && ignoreNames(x.entry)).map((x) => x.entry);
          for (const name of filteredEntries) {
-            const hashOut = (await os.execCommand(`scripts/hash.sh ${category}/${name}`));
-            const sha = hashOut.stdOut;
+            let hashOut = "";
+            if (window.NL_OS === "Windows") {
+               hashOut = (await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/${category}/${name}`)).stdOut;
+            } else {
+               hashOut = (await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/${category}/${name}`)).stdOut;
+            }
+            const sha = hashOut;
             output.push({
                category,
                name,
@@ -34,12 +39,11 @@ const useCheckRevert = () => {
    };
 
    const getCompareHashes = async () => {
-      const installedWorkflows = await getWorkflows(); 
+      const installedWorkflows = await getWorkflows();
       const output = [];
 
       for (let workflow of installedWorkflows) {
          const savedHash = await getSavedHash(workflow.category, workflow.name);
-         
          if (workflow.sha.trim() !== savedHash.trim()) {
             output.push(workflow);
          }

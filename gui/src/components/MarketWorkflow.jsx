@@ -17,7 +17,6 @@ import { filesystem, os } from "@neutralinojs/lib";
 
 function Workflow(props) {
    const [isLoading, setIsLoading] = useState(false);
-   const [hash, setHash] = useState('');
 
    /**
     * Renders the tooltip to display for worklows that havent installed prompting the user to click on it to install it
@@ -65,7 +64,8 @@ function Workflow(props) {
          }
 
          for (let file of files) {
-            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
+            const cleanedFileName = file.replaceAll('#', '%23')
+            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${cleanedFileName}`);
          }
 
          setHashState();
@@ -75,23 +75,16 @@ function Workflow(props) {
          console.log(e);
       } finally {
          setIsLoading(false);
-         setHash('');
       }
    };
 
    const setHashState = async () => {
-      setHash((await os.execCommand(`scripts/hash.sh ${props.category}/${props.name}`)).stdOut);
-   };
-
-   const createHashFile = async () => {
-      await os.execCommand(`echo -n "${hash}" > .storage/${props.category}-${props.name}`);
-   };
-
-   useEffect(() => {
-      if (hash !== '') {
-         createHashFile();
+      if (window.NL_OS === "Windows") {
+         await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
+      } else {
+         await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
       }
-   }, [hash]);
+   };
 
    /**
     * Renders the install button for the workflow
