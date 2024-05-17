@@ -1,5 +1,10 @@
 **Note:** It is recommended that the user either use Firefox or Google Chrome as their primary browser.
 
+# Supported Operating Systems
+- Ubuntu
+- Windows 10/11
+- macOS (M-Series)
+
 # Install as a user
 1. Make sure `curl` is installed.
 2. Install [Docker Engine](https://docs.docker.com/engine/install/) or [Docker Desktop](https://docs.docker.com/desktop/).  If using Docker Engine follow the directions to [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).  If using Docker Desktop, start Docker.
