@@ -1,4 +1,23 @@
 #!/bin/bash
+if [ -d "${HOME}/.docker"]; then
+    echo ".docker exists"
+else
+    echo ".docker folder doesnt exist"
+    cd "${HOME}"
+    mkdir ".docker"
+    echo ".docker folder created"
+    
+    fi
+if [ -d "${HOME}/.docker/machine" ]; then
+    echo "Machine folder exists"
+    
+else
+    echo "Machine folder doesnt exist"
+    cd ${HOME}/.docker
+    mkdir "machine"
+    echo "Machine folder created"
+
+    fi
 
 # Check if docker-machine is already installed
 if command -v docker-machine &> /dev/null
