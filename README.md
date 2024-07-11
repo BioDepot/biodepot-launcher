@@ -11,6 +11,7 @@
 3. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you plan to launch Bwb on AWS.  Remember to input/install the appropriate credentials.
 4. Download docker-machine for you platform of choice by using your OS specific script in the [dm_install_scripts](https://github.com/BioDepot/biodepot-launcher/tree/main/dm_install_scripts) folder.  Only required if you plan on using AWS.
 5. Unzip the [package](https://raw.githubusercontent.com/Biodepot/biodepot-launcher/main/binaries.zip) created by the BioDepot team and double click on the binary associated with your operating system.
+6. (Windows Operating System Only) Windows will prompt the user with a short series of questions before opening the Launcher.  This is normal and directions to help navigate the prompt are at this [LINK]().
 
 # Install for development (Ubuntu)
 1. Install [Docker Engine](https://docs.docker.com/engine/install/).  Follow the directions to [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
@@ -32,9 +33,9 @@
   - `npm install -g @neutralinojs/neu`
 
 # Developing for the project
-To build and run the project, navigate to the gui folder and run the command `npm run build`.  This will build the React portion of the application.  Next navigate to the launcher's root folder and run the command `neu build --release`.  This will build the binaries of the Neutralino application, which are located in the dist/gui-app folder.  Navigate to this folder and `chmod +x neutralino-linux_x64` to give execute permissions to the binary.  To start the app, run the neutralino-linux_x64 binary.
+To build and run the project, navigate to the gui folder and run the command `npm run build`.  This will build the React portion of the application.  Next navigate to the launcher's root folder and run the command `neu build --release`.  This will build the binaries of the Neutralino application, which are located in the dist/gui-app folder.  Navigate to this folder and `chmod +x gui-app-linux_x64` to give execute permissions to the binary.  To start the app, run the gui-app-linux_x64 binary.
 
-Unfortunately, debugging has broken in the version of Neutralino that is being used for the Launcher.
+Unfortunately, using a browser for debugging is broken in the version of Neutralino that is being used for the Launcher.
 
 # Developing for the project (Depricated Instructions)
 If you are only trying to make React changes, A.K.A, changes that do not rely on the Neutralino API:

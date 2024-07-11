@@ -84,7 +84,7 @@ function Workflow(props) {
    };
 
    const openGitPod = async () => {
-      const alteredWorkflowName = `${props.name}`.replace('_', '-');
+      const alteredWorkflowName = `${props.name}`.replaceAll('_', '-');
       await os.open("https://gitpod.io/#https://github.com/Biodepot-workflows/" + alteredWorkflowName);
 
       closeLaunchModal();
