@@ -27,7 +27,13 @@ instance_name="$(date +%s | tr -d '\n' | tail -c 4)-$parsed_workflow_name"
   --amazonec2-region $region \
   --amazonec2-instance-type $instance_type \
   --amazonec2-security-group $security_group \
-  --amazonec2-ami $ami_id $instance_name > /workspace/mnt/dm-output.log
+  --amazonec2-ami $ami_id $instance_name > /workspace/mnt/dm-output.log 2>&1
+
+if [ $? -eq 0 ]; then
+  :
+else
+  exit 1
+fi
 
 # Set docker-machine env to remote instance
 #eval "$(docker-machine env $instance_name)"
@@ -39,13 +45,13 @@ do
 done
 
 # Start bwb on remote instance
-/workspace/docker-machine ssh $instance_name /home/ubuntu/mount_disks.sh >> /workspace/mnt/dm-output.log
+/workspace/docker-machine ssh $instance_name /home/ubuntu/mount_disks.sh >> /workspace/mnt/dm-output.log 2>&1
 
 # Update $workflow_dir to use the workflow directory selected by user
-/workspace/docker-machine scp -r /workspace/mnt/$workflow_dir $instance_name:/mnt/data/ >> /workspace/mnt/dm-output.log
+/workspace/docker-machine scp -r /workspace/mnt/$workflow_dir $instance_name:/mnt/data/ >> /workspace/mnt/dm-output.log 2>&1
 
 # bwbLauncher will need to pass $instance_name
-/workspace/docker-machine ssh $instance_name "export workflow=$workflow_name; /home/ubuntu/start_bwb.sh" >> /workspace/mnt/dm-output.log
+/workspace/docker-machine ssh $instance_name "export workflow=$workflow_name; /home/ubuntu/start_bwb.sh" >> /workspace/mnt/dm-output.log 2>&1
 
 #docker run --rm -d  -p 80:6080 -p 5900:5900 -v  /home/ubuntu:/data -v  /var/run/docker.sock:/var/run/docker.sock  -v /tmp/.X11-unix:/tmp/.X11-unix --privileged --group-add root biodepot/bwb:latest
 
@@ -68,7 +74,7 @@ else
     chmod -R 777 /root/.docker/machine/*
 fi
 
-nc -z $ip 80 >> /workspace/mnt/dm-output.log
+nc -z $ip 80 >> /workspace/mnt/dm-output.log 2>&1
 sleep 30
 
 echo "$ip"

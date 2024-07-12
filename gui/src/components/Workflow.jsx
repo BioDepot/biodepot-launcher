@@ -106,7 +106,10 @@ function Workflow(props) {
          let home = (await os.execCommand(`echo $HOME`)).stdOut.trim();
          output = await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" -v "${home}/.aws":"/root/.aws" -v "${home}/.docker/machine":"/root/.docker/machine" biodepot/launcher-utils:latest "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
       }
-      await os.open("http://" + output.stdOut); 
+
+      if (output.stdOut !== "") {
+         await os.open("http://" + output.stdOut);
+      }
       
       setShow(false);
    };
