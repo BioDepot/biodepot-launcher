@@ -387,6 +387,16 @@ function Workflow(props) {
       }
    }
 
+   const updateFunctions = () => {
+      updateWorkflow();
+      closeUpdateModal();
+   }
+
+   const rebaseFunctions = () => {
+      revertWorkflow();
+      closeRevertModal();
+   }
+
    return (
       <tr className="align-middle">
          <LaunchModal 
@@ -445,7 +455,7 @@ function Workflow(props) {
                <span>Selecting "Update" will update the workflow and overwrite any changes that were made locally.  Do you still want to update?</span>
             </Modal.Body>
             <Modal.Footer>
-               <Button variant="primary" onClick={() => { updateWorkflow(); closeUpdateModal(); } }>
+               <Button variant="primary" onClick={() => updateFunctions()}>
                   Update
                </Button>
                <Button variant="primary" onClick={() => closeUpdateModal()}>
@@ -461,7 +471,7 @@ function Workflow(props) {
                <span>Selecting "Rebase" will rebase the workflow and overwrite any changes that were made locally.  Do you still want to rebase?</span>
             </Modal.Body>
             <Modal.Footer>
-               <Button variant="primary" onClick={() => { revertWorkflow(); closeRevertModal(); } }>
+               <Button variant="primary" onClick={() => rebaseFunctions()}>
                   Rebase
                </Button>
                <Button variant="primary" onClick={() => closeRevertModal()}>
