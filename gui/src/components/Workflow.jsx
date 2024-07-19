@@ -153,7 +153,7 @@ function Workflow(props) {
                   className="border rounded-pill p-2 bg-muted workflow-update-btn d-flex align-items-center justify-content-between"
                   onClick={openUpdateModal}
                >
-                  <span>Update Available</span>
+                  <span>Update</span>
                </div>
             </OverlayTrigger>
          );
@@ -455,9 +455,11 @@ function Workflow(props) {
                <span>Selecting "Update" will update the workflow and overwrite any changes that were made locally.  Do you still want to update?</span>
             </Modal.Body>
             <Modal.Footer>
-               <Button variant="primary" onClick={() => updateFunctions()}>
-                  Update
-               </Button>
+               <div onClick={() => updateFunctions()}>
+                  <Button variant="primary">
+                     Update
+                  </Button>
+               </div>
                <Button variant="primary" onClick={() => closeUpdateModal()}>
                   Cancel
                </Button>
@@ -471,9 +473,11 @@ function Workflow(props) {
                <span>Selecting "Rebase" will rebase the workflow and overwrite any changes that were made locally.  Do you still want to rebase?</span>
             </Modal.Body>
             <Modal.Footer>
-               <Button variant="primary" onClick={(e) => { e.stopPropagation(); rebaseFunctions(); } }>
-                  Rebase
-               </Button>
+               <div onClick={() => rebaseFunctions()}>
+                  <Button variant="primary">
+                     Rebase
+                  </Button>
+               </div>
                <Button variant="primary" onClick={() => closeRevertModal()}>
                   Cancel
                </Button>
