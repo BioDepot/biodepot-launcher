@@ -19,6 +19,8 @@ import { LAUNCH_COMMAND } from '../constants';
 import LaunchModal from './LaunchModal';
 import { os, filesystem } from "@neutralinojs/lib";
 
+import RebaseModal from './RebaseModal';
+
 
 function Workflow(props) {
    const [showLaunchModal, setShowLaunchModal] = useState(false);
@@ -406,6 +408,11 @@ function Workflow(props) {
             onGitPod={() => { openGitPod(); }}
             onAWS={() => { checkForAWS(); }}
          />
+         <RebaseModal
+            show={showRevert}
+            handleClose={closeRevertModal}
+            rebase={() => { rebaseFunctions(); } }
+         />
 
          <td>{props.name}</td>
          <td>{renderCircleFill()}</td>
@@ -465,7 +472,7 @@ function Workflow(props) {
                </Button>
             </Modal.Footer>
          </Modal>
-         <Modal show={showRevert} onHide={closeRevertModal} backdrop="static" keyboard={false}>
+         {/* <Modal show={showRevert} onHide={closeRevertModal} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
                <Modal.Title>Warning!</Modal.Title>
             </Modal.Header>
@@ -482,7 +489,7 @@ function Workflow(props) {
                   Cancel
                </Button>
             </Modal.Footer>
-         </Modal>
+         </Modal> */}
          <Modal show={showAWSModal} onHide={closeAWSModal} backdrop="static" keyboard={false}>
             <Modal.Header closeButton>
                <Modal.Title>Warning!</Modal.Title>
