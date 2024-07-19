@@ -471,7 +471,7 @@ function Workflow(props) {
                <span>Selecting "Rebase" will rebase the workflow and overwrite any changes that were made locally.  Do you still want to rebase?</span>
             </Modal.Body>
             <Modal.Footer>
-               <Button variant="primary" onClick={() => rebaseFunctions()}>
+               <Button variant="primary" onClick={(e) => { e.stopPropagation(); rebaseFunctions(); } }>
                   Rebase
                </Button>
                <Button variant="primary" onClick={() => closeRevertModal()}>
