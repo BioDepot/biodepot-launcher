@@ -107,13 +107,13 @@ function Workflow(props) {
          output = await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" -v "${home}/.aws":"/root/.aws" -v "${home}/.docker/machine":"/root/.docker/machine" biodepot/launcher-utils:latest "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
       }
 
-      if (osType === "Darwin") {
+      if (osType === "Linux" || osType === "Windows") {
          if (output.stdOut !== "") {
-            await os.open("http://" + output.stdOut.split('%')[0]);
+            await os.open("http://" + output.stdOut);
          }
       } else {
          if (output.stdOut !== "") {
-            await os.open("http://" + output.stdOut);
+            await os.open("http://" + output.stdOut.split('%')[0]);
          }
       }
       
