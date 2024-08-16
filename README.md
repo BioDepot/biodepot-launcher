@@ -1,17 +1,31 @@
-**Note:** It is recommended that the user either use Firefox or Google Chrome as their primary browser.
+**Note:** It is recommended to use Firefox or Google Chrome as a primary browser while running the Launcher.
 
 # Supported Operating Systems
 - Ubuntu
 - Windows 10/11
 - macOS (M-Series)
 
-# Install as a user
+# Install as a user on Ubuntu/Mac
 1. Make sure `curl` is installed.
-2. Install [Docker Engine](https://docs.docker.com/engine/install/) or [Docker Desktop](https://docs.docker.com/desktop/).  If using Docker Engine follow the directions to [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).  If using Docker Desktop, start Docker.
-3. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you plan to launch Bwb on AWS.  Remember to input/install the appropriate credentials.
+2. Install [Docker Engine](https://docs.docker.com/engine/install/) or [Docker Desktop](https://docs.docker.com/desktop/).  If using Ubuntu and Docker Engine, follow the directions to [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).  If using Docker Desktop, start Docker.
+3. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you plan to launch Bwb on AWS.  Remember to input/configure the appropriate credentials.
 4. Download docker-machine for you platform of choice by using your OS specific script in the [dm_install_scripts](https://github.com/BioDepot/biodepot-launcher/tree/main/dm_install_scripts) folder.  Only required if you plan on using AWS.
 5. Unzip the [package](https://raw.githubusercontent.com/Biodepot/biodepot-launcher/main/binaries.zip) created by the BioDepot team and double click on the binary associated with your operating system.
-6. (Windows Operating System Only) Windows will prompt the user with a short series of questions before opening the Launcher.  This is normal and directions to help navigate the prompt are at this [LINK]().
+
+# Install as a user on Windows WSL2 using Ubuntu
+1. Install [Docker Desktop](https://docs.docker.com/desktop/).  During the installation you will be asked to install WSL2, follow the instructions to do so.  If asked which version of Linux to install, install Ubuntu.  Remember your root/admin/sudo password for later.
+2. If you didn't install a version of Ubuntu during installation of WSL2, you'll have to install Ubuntu from the Microsoft Store.
+3. In the Docker Desktop application, click the Gear icon in the upper right corner of the application to enter the settings.  Under the "General" tab, make sure that the "User the WSL2 based engine" is checked.
+4. In the Docker Desktop settings, under the "Resources" tab, click the "WSL Integration" sub-tab and select Ubuntu in the right hand pane.  Click the "Apply & Restart" button.
+5. In the Windows search bar, type in Ubuntu and select the icon that appears.  A terminal window should show up.
+6. Make sure that you are in the correct user directory by running the following command: `cd ~`
+7. Get the binaries.zip file with the follow command: `wget https://raw.githubusercontent.com/Biodepot/biodepot-launcher/main/binaries.zip`
+8. Now, install necessary packages with the following command: `sudo apt install unzip firefox libwebkit2gtk-4.0-37`
+9. Run the following command: `unzip binaries.zip`
+10. Go to the docker-machine installation directory: `cd binaries/binaries/dm_install_scripts/ubuntu`.  Then install docker-machine by running the following command: `./ubuntu.sh`
+11. Close and reopen the terminal, refer the step 5 for how to open the terminal.
+12. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) if you plan to launch Bwb on AWS.  Remember to input/configure the appropriate credentials.
+13. To run the launcher, first enter the directory when it is contained: `cd binaries/binaries`.  Now run the following command to run the launcher: `./neutralino-linux_x64`
 
 # Install for development (Ubuntu)
 1. Install [Docker Engine](https://docs.docker.com/engine/install/).  Follow the directions to [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
