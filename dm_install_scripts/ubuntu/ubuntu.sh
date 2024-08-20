@@ -39,30 +39,30 @@ else
   echo "docker-machine is accessible from the command line. You do not need to run this script again."
 fi
 
-# Check if ~/docker directory exists
-if [ -d "$HOME/docker" ]; then
+# Check if ~/.docker directory exists
+if [ -d "$HOME/.docker" ]; then
   echo "~/docker directory already exists."
 else
-  mkdir -p "$HOME/docker"
-  # Check if ~/docker directory was created
-  if [ -d "$HOME/docker" ]; then
+  mkdir -p "$HOME/.docker"
+  # Check if ~/.docker directory was created
+  if [ -d "$HOME/.docker" ]; then
     echo "Created ~/docker directory."
   else
-    echo "Couldn't create directory at $HOME/docker"
+    echo "Couldn't create directory at $HOME/.docker"
     exit 1
   fi
 fi
 
-# Check if ~/docker/.machine directory exists
-if [ -d "$HOME/docker/.machine" ]; then
-  echo "~/docker/.machine directory already exists."
+# Check if ~/.docker/machine directory exists
+if [ -d "$HOME/.docker/machine" ]; then
+  echo "~/.docker/machine directory already exists."
 else
-  mkdir -p "$HOME/docker/.machine"
-  # Check if ~/docker/.machine directory was created
-  if [ -d "$HOME/docker/.machine" ]; then
-    echo "Created ~/docker/.machine directory."
+  mkdir -p "$HOME/.docker/machine"
+  # Check if ~/.docker/machine directory was created
+  if [ -d "$HOME/.docker/machine" ]; then
+    echo "Created ~/.docker/machine directory."
   else
-    echo "Couldn't create directory at $HOME/docker/.machine"
+    echo "Couldn't create directory at $HOME/.docker/machine"
     exit 1
   fi
 fi

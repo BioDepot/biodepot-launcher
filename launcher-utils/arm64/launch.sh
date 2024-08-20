@@ -60,6 +60,7 @@ done
 
 # Find public dns of remote instance
 ip=$(/workspace/docker-machine ip $instance_name)
+echo "IP at DM ip command: $ip" >> /workspace/mnt/dm-output.log 2>&1
 #ip=${ip//./-}
 #dns="ec2-$ip.$region.compute.amazonaws.com"
 

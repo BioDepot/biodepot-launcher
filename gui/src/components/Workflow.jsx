@@ -112,8 +112,10 @@ function Workflow(props) {
             await os.open("http://" + output.stdOut);
          }
       } else {
-         if (output.stdOut !== "") {
-            await os.open("http://" + output.stdOut.split('%')[0]);
+         const ip = output.stdOut;
+
+         if (ip !== "") {
+            await os.open("http://" + ip);
          }
       }
       
