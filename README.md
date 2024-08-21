@@ -2,7 +2,7 @@
 
 # Supported Operating Systems
 - Ubuntu
-- Windows 10/11
+- Windows 10/11 - Ubuntu WSL2
 - macOS (M-Series)
 
 # Install as a user on Ubuntu/Mac
@@ -50,6 +50,10 @@
 To build and run the project, navigate to the gui folder and run the command `npm run build`.  This will build the React portion of the application.  Next navigate to the launcher's root folder and run the command `neu build --release`.  This will build the binaries of the Neutralino application, which are located in the dist/gui-app folder.  Navigate to this folder and `chmod +x gui-app-linux_x64` to give execute permissions to the binary.  To start the app, run the gui-app-linux_x64 binary.
 
 Unfortunately, using a browser for debugging is broken in the version of Neutralino that is being used for the Launcher.
+
+# Potential sources of error
+- Sometimes when launching a workflow on AWS, the instance will not correctly provision.  This is a docker-machine bug.  There is a log file called dm-output.log that is created when launching a workflow on AWS.  If the AWS provisioning takes longer than 5 minutes, check the log.  If the last line in the log reads `Error creating machine: Failed to obtain lock: Maximum number of retries (60) exceeded` then the bug has occurred.  Simply relaunch a workflow.  Also, make sure to close any instance that may have been created on AWS to prevent extraneous charges.
+- For users of Docker Desktop, use a version prior to 4.32.  4.32 intruduces permission features that prevent the Launcher from loading correctly.
 
 # Developing for the project (Depricated Instructions)
 If you are only trying to make React changes, A.K.A, changes that do not rely on the Neutralino API:
