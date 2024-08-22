@@ -40,8 +40,10 @@ jobs:
           mkdir binaries
           cp bin/neutralino-linux_x64 binaries/
           cp bin/neutralino-mac_arm64 binaries/
+          cp bin/neutralino-linux_arm64 binaries/
           chmod +x binaries/neutralino-linux_x64
           chmod +x binaries/neutralino-mac_arm64
+          chmod +x binaries/neutralino-linux_arm64
           cp -r dm_install_scripts/ binaries/
           rm -rf binaries/dm_install_scripts/windows
           cp resources.neu binaries/
