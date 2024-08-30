@@ -35,27 +35,29 @@ const useWorkflowUpdates = () => {
       const getCompareHashes = async () => {
          const installedWorkflows = await getWorkflows();
          const response = await fetch("https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/hash.txt");
-         const text = await response.text();
-   
+         const text = (await response.text()).trim();
+
          let hashDetails = [];
          text.split('\n').forEach( (line) => hashDetails.push(line.split(' ')) );
-   
+
          const output = [];
    
          for (let workflow of installedWorkflows) {
             for (let h of hashDetails) {
                if (`./${workflow.category}/${workflow.name}` === h[1].trim()) {
                   const savedHash = await getSavedHash(workflow.category, workflow.name);
-   
+               
                   if (savedHash.trim() !== h[0]) {
-                     output.push(workflow);
-                     break;
+                     output.push([
+                        workflow.category,
+                        workflow.name
+                     ]);
                   }
                }
             }
          }
-      
-         setNeedsUpdates(output.map((workflow) => [workflow.category, workflow.name]));         
+
+         setNeedsUpdates(output);         
       };
 
       getCompareHashes();

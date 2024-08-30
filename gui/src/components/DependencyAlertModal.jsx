@@ -97,7 +97,7 @@ export default (props) => {
                <Modal.Title>Bwb Install/Update</Modal.Title>
             </Modal.Header>
             :
-            <Modal.Header closeButton>
+            <Modal.Header>
                <Modal.Title>Bwb Install/Update</Modal.Title>
             </Modal.Header>}
             <Modal.Body>
@@ -128,7 +128,7 @@ export default (props) => {
                <Modal.Title>Launcher Utils Install</Modal.Title>
             </Modal.Header>
             :
-            <Modal.Header closeButton>
+            <Modal.Header>
                <Modal.Title>Launcher Utils Install</Modal.Title>
             </Modal.Header>}
             <Modal.Body>

@@ -49,23 +49,9 @@
 # Developing for the project
 To build and run the project, navigate to the gui folder and run the command `npm run build`.  This will build the React portion of the application.  Next navigate to the launcher's root folder and run the command `neu build --release`.  This will build the binaries of the Neutralino application, which are located in the dist/gui-app folder.  Navigate to this folder and `chmod +x gui-app-linux_x64` to give execute permissions to the binary.  To start the app, run the gui-app-linux_x64 binary.
 
-Unfortunately, using a browser for debugging is broken in the version of Neutralino that is being used for the Launcher.
+To run the project with a debugger in development mode in the gui folder run `npm run build` followed by `npm start`.  In the launcher's root folder run the following command `neu run -- --window-enable-inspector`.  For any changes, the process that was followed was stopping neutralino, stopping the npm server, rebuilding, starting the npm server, then restarting neutralino with the previous command.  Rebuilding for every change may not be necessary.
 
 # Potential sources of error
 - Sometimes when launching a workflow on AWS, the instance will not correctly provision.  This is a docker-machine bug.  There is a log file called dm-output.log that is created when launching a workflow on AWS.  If the AWS provisioning takes longer than 5 minutes, check the log.  If the last line in the log reads `Error creating machine: Failed to obtain lock: Maximum number of retries (60) exceeded` then the bug has occurred.  Simply relaunch a workflow.  Also, make sure to close any instance that may have been created on AWS to prevent extraneous charges.
 - For users of Docker Desktop, use a version prior to 4.32.  4.32 intruduces permission features that prevent the Launcher from loading correctly.
-
-# Developing for the project (Depricated Instructions)
-If you are only trying to make React changes, A.K.A, changes that do not rely on the Neutralino API:
-
-Then you can run `npm start` in the gui folder, make your changes, and you will be able to see them live.
-
-Alternatively, if you would like to see the React changes directly through Neutralino, still assuming these are changes that do not rely on the Neutralino API:
-
-You can run `npm start` in the gui folder and then run `neu run --frontend-lib-dev -- --window-enable-inspector` in the overall project folder. This make your React changes live and visible through Neutralino.  Additionally, change the value of "tokenSecurity" to the value "none" in the neutralino.config.json file.  Before commiting, change the "tokenSecurity" value back to "one-time".
-
-**NOTE:** I'm not sure why but flags in the 2nd command above __needs__ to be ran in that specified order. The Neutralino CLI will ignore one of the flags if not in the order I have specified. To ensure you are running the command to see the live React changes and be able to inspect the console, make sure `--window-enable-inspector` is visible in the Neutralino CLI output.
-
-If you are trying to make changes that involve the Neutralino API, you will need to re-build the React part of the project by running `npm run build` inside of the gui folder after every change, then running `neu run -- --window-enable-inspector`. At the moment, you cannot do live hot reloading with changes involving the Neutralino API.
-
-Re-building the project after every change will be time consuming during development which is why I recommend isolating all of the React changes necessary, doing those using the hot reload feature of react so that you dont need to re-build the project every time while developing the react piece **AND THEN** moving on to the Neutralino API pieces.
+- It was noticed on Ubuntu with Docker Engine:  After a fresh install of Docker Engine, if starting the Launcher right afterwards, the Launcher will not detect Docker.  To fix this, restart Ubuntu.

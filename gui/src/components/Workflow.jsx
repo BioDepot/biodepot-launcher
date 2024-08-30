@@ -159,7 +159,7 @@ function Workflow(props) {
                   className="border rounded-pill p-2 bg-muted workflow-update-btn d-flex align-items-center justify-content-between"
                   onClick={openUpdateModal}
                >
-                  <span>Update Available</span>
+                  <span>Update</span>
                </div>
             </OverlayTrigger>
          );
