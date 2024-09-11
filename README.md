@@ -53,5 +53,4 @@ To run the project with a debugger in development mode in the gui folder run `np
 
 # Potential sources of error
 - Sometimes when launching a workflow on AWS, the instance will not correctly provision.  This is a docker-machine bug.  There is a log file called dm-output.log that is created when launching a workflow on AWS.  If the AWS provisioning takes longer than 5 minutes, check the log.  If the last line in the log reads `Error creating machine: Failed to obtain lock: Maximum number of retries (60) exceeded` then the bug has occurred.  Simply relaunch a workflow.  Also, make sure to close any instance that may have been created on AWS to prevent extraneous charges.
-- For users of Docker Desktop, use a version prior to 4.32.  4.32 intruduces permission features that prevent the Launcher from loading correctly.
 - It was noticed on Ubuntu with Docker Engine:  After a fresh install of Docker Engine, if starting the Launcher right afterwards, the Launcher will not detect Docker.  To fix this, restart Ubuntu.
