@@ -65,7 +65,8 @@ function Workflow(props) {
 
          for (let file of files) {
             const cleanedFileName = file.replaceAll('#', '%23')
-            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${cleanedFileName}`);
+            const pwd = (await os.execCommand("pwd")).stdOut.trim();
+            await os.execCommand(`curl -o ${pwd}/${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${cleanedFileName}`);
          }
 
          setHashState();
@@ -79,10 +80,11 @@ function Workflow(props) {
    };
 
    const setHashState = async () => {
+      const pwd = (await os.execCommand("pwd")).stdOut.trim();
       if (window.NL_OS === "Windows") {
-         await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
+         await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ${pwd}/.storage/${props.category}-${props.name}`);
       } else {
-         await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
+         await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ${pwd}/.storage/${props.category}-${props.name}`);
       }
    };
 

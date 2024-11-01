@@ -12,8 +12,9 @@ const useWorkflowUpdates = () => {
    const getWorkflows = async () => {
       // Dict of <CATEGORY, List of installed workflows>
       const output = [];
+      const pwd = (await os.execCommand("pwd")).stdOut.trim();
       for (const category of CATEGORIES) {
-         const folderEntries = await filesystem.readDirectory(`./${category}`);
+         const folderEntries = await filesystem.readDirectory(`${pwd}/${category}`);
          // Ignore directory names of .. and .
          const ignoreNames = (x) => x !== ".." && x !== ".";
          const filteredEntries = folderEntries.filter((x) => x.type === DIRECTORY && ignoreNames(x.entry)).map((x) => x.entry);
@@ -28,7 +29,8 @@ const useWorkflowUpdates = () => {
    };
 
    const getSavedHash = async (category, name) => {
-        return await filesystem.readFile(`./.storage/${category}-${name}`);
+      const pwd = (await os.execCommand("pwd")).stdOut.trim();
+      return await filesystem.readFile(`${pwd}/.storage/${category}-${name}`);
    };
 
    useEffect(() => {
@@ -41,10 +43,11 @@ const useWorkflowUpdates = () => {
          text.split('\n').forEach( (line) => hashDetails.push(line.split(' ')) );
 
          const output = [];
-   
+         const pwd = (await os.execCommand("pwd")).stdOut.trim();
+
          for (let workflow of installedWorkflows) {
             for (let h of hashDetails) {
-               if (`./${workflow.category}/${workflow.name}` === h[1].trim()) {
+               if (`${pwd}/${workflow.category}/${workflow.name}` === h[1].trim()) {
                   const savedHash = await getSavedHash(workflow.category, workflow.name);
                
                   if (savedHash.trim() !== h[0]) {

@@ -21,8 +21,9 @@ const useInstalledCategory = (category) => {
     */
    const getInstalledState = useCallback(async () => {
       var folderEntries;
+      const pwd = (await os.execCommand("pwd")).stdOut.trim();
       try {
-         folderEntries = await filesystem.readDirectory(`./${category}`);
+         folderEntries = await filesystem.readDirectory(`${pwd}/${category}`);
       } catch (error){
          return;
       }

@@ -14,8 +14,9 @@ const useInstalled = () => {
    const getInstalledState = async () => {
       try {
          let output = {};
+         const pwd = (await os.execCommand("pwd")).stdOut.trim();
          for (const category of CATEGORIES) {
-            const folderEntries = await filesystem.readDirectory(`./${category}`);
+            const folderEntries = await filesystem.readDirectory(`${pwd}/${category}`);
             // Ignore directory names of .. and .
             const ignoreNames = (x) => x !== ".." && x !== ".";
             const filteredEntries = folderEntries.filter((x) => x.type === DIRECTORY && ignoreNames(x.entry)).map((x) => x.entry);

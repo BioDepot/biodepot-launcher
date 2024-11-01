@@ -11,8 +11,10 @@ const useCheckRevert = () => {
    const getWorkflows = async () => {
       // Dict of <CATEGORY, List of installed workflows>
       const output = [];
+      const pwd = (await os.execCommand("pwd")).stdOut.trim();
+
       for (const category of CATEGORIES) {
-         const folderEntries = await filesystem.readDirectory(`./${category}`);
+         const folderEntries = await filesystem.readDirectory(`${pwd}/${category}`);
          // Ignore directory names of .. and .
          const ignoreNames = (x) => x !== ".." && x !== ".";
          const filteredEntries = folderEntries.filter((x) => x.type === DIRECTORY && ignoreNames(x.entry)).map((x) => x.entry);
@@ -35,7 +37,8 @@ const useCheckRevert = () => {
    };
 
    const getSavedHash = async (category, name) => {
-        return await filesystem.readFile(`./.storage/${category}-${name}`);
+      const pwd = (await os.execCommand("pwd")).stdOut.trim();
+      return await filesystem.readFile(`${pwd}/.storage/${category}-${name}`);
    };
 
    const getCompareHashes = async () => {

@@ -21,8 +21,9 @@ const useHasDocu = (name, category) => {
    useEffect(() => {
       const checkIfDoc = async () => {
          var entries;
+         const pwd = (await os.execCommand("pwd")).stdOut.trim();
          try{
-            entries = await filesystem.readDirectory(`./${category}/${name}`);
+            entries = await filesystem.readDirectory(`${pwd}/${category}/${name}`);
          } catch{ 
             setHasDocu("");
             return;
