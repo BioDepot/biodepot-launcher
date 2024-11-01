@@ -34,7 +34,7 @@ fi
 
 # Check if docker-machine is accessible from the CLI
 if [ "$(which docker-machine)" == "" ]; then
-  echo "Please add $INSTALL_DIR to your PATH or restart your shell to register docker-machine installation. You do not need to run this script again."
+  echo "Please logout and back in to register docker-machine installation. You do not need to run this script again."
 else
   echo "docker-machine is accessible from the command line. You do not need to run this script again."
 fi
