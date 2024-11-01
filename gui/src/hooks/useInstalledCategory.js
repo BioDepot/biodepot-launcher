@@ -9,7 +9,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { DIRECTORY } from '../constants';
-import { filesystem } from "@neutralinojs/lib";
+import { filesystem, os } from "@neutralinojs/lib";
 
 const useInstalledCategory = (category) => {
    // The list of installed workflows under given category

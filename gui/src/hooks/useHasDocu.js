@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from 'react';
 import { README } from '../constants';
-import { filesystem } from "@neutralinojs/lib";
+import { filesystem, os } from "@neutralinojs/lib";
 
 const useHasDocu = (name, category) => {
    const [hasDocu, setHasDocu] = useState(null);

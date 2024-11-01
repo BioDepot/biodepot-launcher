@@ -3,7 +3,7 @@ import {
    CATEGORIES, 
    DIRECTORY,
 } from '../constants';
-import { filesystem } from "@neutralinojs/lib";
+import { filesystem, os } from "@neutralinojs/lib";
 
 const useWorkflowUpdates = () => {
 
