@@ -44,28 +44,28 @@ function Workflow(props) {
             const fileName = props.fileDetails[i][1];
             
             if (fileName !== undefined) {
-                  if (fileName.startsWith(workflowType + '/' + workflow)) {
-                     const fileType = props.fileDetails[i][0];
+               if (fileName.startsWith(workflowType + '/' + workflow)) {
+                  const fileType = props.fileDetails[i][0];
 
-                     if (fileType === 'tree') {
-                        const splitFolders = fileName.split('/');
-                        if (splitFolders[0] === workflowType && splitFolders[1] === workflow) {
-                              folders.push(fileName);
-                        }
-                     } else if (fileType === 'blob' && fileName.startsWith(workflowType + '/' + workflow + '/')) {
-                        files.push(fileName);
+                  if (fileType === 'tree') {
+                     const splitFolders = fileName.split('/');
+                     if (splitFolders[0] === workflowType && splitFolders[1] === workflow) {
+                           folders.push(fileName);
                      }
+                  } else if (fileType === 'blob' && fileName.startsWith(workflowType + '/' + workflow + '/')) {
+                     files.push(fileName);
                   }
+               }
             }
          }
 
          for (let folder of folders) {
-            await filesystem.createDirectory(folder);
+            await filesystem.createDirectory(`./workflows/${folder}`);
          }
 
          for (let file of files) {
             const cleanedFileName = file.replaceAll('#', '%23')
-            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${cleanedFileName}`);
+            await os.execCommand(`curl -o ./workflows/${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${cleanedFileName}`);
          }
 
          setHashState();
@@ -80,9 +80,9 @@ function Workflow(props) {
 
    const setHashState = async () => {
       if (window.NL_OS === "Windows") {
-         await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
+         await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/workflows/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
       } else {
-         await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
+         await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/workflows/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
       }
    };
 

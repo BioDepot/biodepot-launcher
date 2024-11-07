@@ -56,12 +56,16 @@ function App() {
   // Ensures that we have a folder ready for each workflow category
   const runInit = async () => {
     const dirEntries = await filesystem.readDirectory('./');
+    if (!dirEntries.includes('workflows')) {
+      await os.execCommand('mkdir workflows').catch((e) => console.log(e));
+    }
+    const wkfwEntries = await filesystem.readDirectory('./workflows/')
     const dirEntriesByName = dirEntries.map((x) => x.entry);
     const readyStatus = CATEGORIES.every((category) => dirEntriesByName.includes(category));
     const missingDirs = CATEGORIES.filter((category) => !dirEntriesByName.includes(category));
     if (!readyStatus) {
       for (const category of missingDirs) {
-        await filesystem.createDirectory(`./${category}`);
+        await filesystem.createDirectory(`./workflows/${category}`);
       }
     }
     // Ensures that we have a .storage folder

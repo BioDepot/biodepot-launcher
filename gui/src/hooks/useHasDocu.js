@@ -22,7 +22,7 @@ const useHasDocu = (name, category) => {
       const checkIfDoc = async () => {
          var entries;
          try{
-            entries = await filesystem.readDirectory(`./${category}/${name}`);
+            entries = await filesystem.readDirectory(`./workflows/${category}/${name}`);
          } catch{ 
             setHasDocu("");
             return;

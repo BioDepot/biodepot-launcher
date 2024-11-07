@@ -22,7 +22,7 @@ const useInstalledCategory = (category) => {
    const getInstalledState = useCallback(async () => {
       var folderEntries;
       try {
-         folderEntries = await filesystem.readDirectory(`./${category}`);
+         folderEntries = await filesystem.readDirectory(`./workflows/${category}`);
       } catch (error){
          return;
       }
