@@ -54,7 +54,7 @@ function Workflow(props) {
    }
 
    const changeInstance = (e) => {
-      setInstance(e.target.id)
+      setInstance(e.target.datavalue)
    }
 
    const [disableLaunch, setDisableLaunch] = useState(false);
@@ -98,13 +98,15 @@ function Workflow(props) {
 
       const osType = window.NL_OS;
 
+      const splitInstance = instance.split(' ')[0];
+
       if (osType === "Windows") {
          let home = (await os.execCommand('echo %userprofile%')).stdOut.trim();
          let homeAltered = home.replace(/\\/g, '\/');
-         output = await os.execCommand(`docker run --rm -v .:/workspace/mnt -v ${homeAltered}/.aws:/root/.aws -v ${homeAltered}/.docker/machine:/root/.docker/machine biodepot/launcher-utils:latest "launch" "${region}" "${instance}" "${props.name}" "./workflows/${props.category}/${props.name}" "${osType}" "${home}"`);
+         output = await os.execCommand(`docker run --rm -v .:/workspace/mnt -v ${homeAltered}/.aws:/root/.aws -v ${homeAltered}/.docker/machine:/root/.docker/machine biodepot/launcher-utils:latest "launch" "${region}" "${splitInstance}" "${props.name}" "./workflows/${props.category}/${props.name}" "${osType}" "${home}"`);
       } else {
          let home = (await os.execCommand(`echo $HOME`)).stdOut.trim();
-         output = await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" -v "${home}/.aws":"/root/.aws" -v "${home}/.docker/machine":"/root/.docker/machine" biodepot/launcher-utils:latest "launch" "${region}" "${instance}" "${props.name}" "./workflows/${props.category}/${props.name}" "${osType}" "${home}"`);
+         output = await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" -v "${home}/.aws":"/root/.aws" -v "${home}/.docker/machine":"/root/.docker/machine" biodepot/launcher-utils:latest "launch" "${region}" "${splitInstance}" "${props.name}" "./workflows/${props.category}/${props.name}" "${osType}" "${home}"`);
       }
 
       if (osType === "Linux" || osType === "Windows") {
@@ -442,8 +444,8 @@ function Workflow(props) {
                <br />
                <label>Instance Type:&nbsp;</label>
                <input id="instanceText" type="text" list= "instance" value={instance} onChange={changeInstance}/>
-               <datalist id="instance" value={instance} onChange={changeInstance}>
-                  <option id="m5d.4xlarge" value="m5d.4xlarge - $0.904/hr" selected>m5d.4xlarge</option>
+               <datalist id="instance" datavalue={instance} onChange={changeInstance}>
+                  <option datavalue="m5d.4xlarge" value="m5d.4xlarge - $0.904/hr" selected>m5d.4xlarge</option>
                </datalist>
             </Modal.Body>
             <Modal.Footer>
