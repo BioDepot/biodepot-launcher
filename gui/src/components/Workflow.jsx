@@ -54,7 +54,7 @@ function Workflow(props) {
    }
 
    const changeInstance = (e) => {
-      setInstance(e.target.value)
+      setInstance(e.target.id)
    }
 
    const [disableLaunch, setDisableLaunch] = useState(false);
@@ -443,7 +443,7 @@ function Workflow(props) {
                <label>Instance Type:&nbsp;</label>
                <input id="instanceText" type="text" list= "instance" value={instance} onChange={changeInstance}/>
                <datalist id="instance" value={instance} onChange={changeInstance}>
-                  <option value="m5d.4xlarge" selected>m5d.4xlarge</option>
+                  <option id="m5d.4xlarge" value="m5d.4xlarge - $0.904/hr" selected>m5d.4xlarge</option>
                </datalist>
             </Modal.Body>
             <Modal.Footer>
