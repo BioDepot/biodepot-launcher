@@ -7,7 +7,7 @@
 - [Install as a user on Ubuntu/Mac](#install-as-a-user-on-ubuntumac)
 - [Install as a user on WIndows WSL2 using Ubuntu](#install-as-a-user-on-windows-wsl2-using-ubuntu)
 - [Install for development (Ubuntu)](#install-for-development-ubuntu)
-- [Developing for the Project](#developing-for-the-project)
+- [Developing for the launcher](#developing-for-the-launcher)
 - [Potential sources of error with Biodepot Launcher](#potential-sources-of-error-with-biodepot-launcher)
 - [Notes about Bwb](#notes-about-bwb)
 
@@ -62,18 +62,19 @@ A training portal has been created to help new users understand how to use the B
 9. Install Neutralino by going to the launcher's root folder and running the following command:
   - `npm install -g @neutralinojs/neu`
 
-## Developing for the project
+## Developing for the launcher
 **Note:** Check out the [CONTRIBUTING.md](CONTRIBUTING.md) for detaisl on how to submit bug reports to the Biodepot Launcher.
 
-To build and run the project, navigate to the gui folder and run the command `npm run build`.  This will build the React portion of the application.  Next navigate to the launcher's root folder and run the command `neu build --release`.  This will build the binaries of the Neutralino application, which are located in the dist/gui-app folder.  Navigate to this folder and `chmod +x gui-app-linux_x64` to give execute permissions to the binary.  To start the app, run the gui-app-linux_x64 binary.
+To build and run the launcher, navigate to the gui folder and run the command `npm run build`.  This will build the React portion of the application.  Next navigate to the launcher's root folder and run the command `neu build --release`.  This will build the binaries of the Neutralino application, which are located in the dist/gui-app folder.  Navigate to this folder and `chmod +x gui-app-linux_x64` to give execute permissions to the binary.  To start the app, run the gui-app-linux_x64 binary.
 
-To run the project with a debugger in development mode in the gui folder run `npm run build` followed by `npm start`.  In the launcher's root folder run the following command `neu run -- --window-enable-inspector`.  For any changes, the process that was followed was stopping neutralino, stopping the npm server, rebuilding, starting the npm server, then restarting neutralino with the previous command.  Rebuilding for every change may not be necessary.
+To run the launcher with a debugger in development mode in the gui folder run `npm run build` followed by `npm start`.  In the launcher's root folder run the following command `neu run -- --window-enable-inspector`.  For any changes, the process that was followed was stopping neutralino, stopping the npm server, rebuilding, starting the npm server, then restarting neutralino with the previous command.  Rebuilding for every change may not be necessary.
 
 ## Potential sources of error with Biodepot Launcher
 - When launching an EC2 instance on AWS, if the instance does not show, check the `dm-output.log` file for details to help diagnose when the issue is.
   - Sometimes when launching a workflow on AWS, the instance will not correctly provision.  This is a docker-machine bug.  If the AWS provisioning takes longer than 5 minutes, check the log.  If the last line in the log reads `Error creating machine: Failed to obtain lock: Maximum number of retries (60) exceeded` then the bug has occurred.  Simply relaunch a workflow.  Also, make sure to close any instance that may have been created on AWS to prevent extraneous charges.
   - Credentials must be configured with the AWS CLI if the user tries launching to AWS.  If the user receives an error containing the follow text `amazonec2 driver requires AWS credentials configured with the --amazonec2-access-key and --amazonec2-secret-key options, environment variables, ~/.aws/credentials, or an instance role` then it is likely that correct credentials were not provided, or input at all.
 - It was noticed on Ubuntu with Docker Engine:  After a fresh install of Docker Engine, if starting the Launcher right afterwards, the Launcher will not detect Docker.  To fix this, restart Ubuntu.
+- When downloading/updating/rebasing a workflow, there will be a spinner displayed on the screen.  When this spinner is displayed, allow the operation to finish before clicking on anything else in the launcher.
 
 ## Notes about Bwb
 - What is Bwb?  Check out a description [HERE](https://biodepot.github.io/training/basic_training/bwb/).
@@ -83,3 +84,4 @@ To run the project with a debugger in development mode in the gui folder run `np
 
 ## Notes about AWS
 - Current prices of AWS instances can be found [HERE](https://aws.amazon.com/ec2/pricing/on-demand/).
+- Launching on AWS currently requires that the user use the us-east-2 (Ohio) region.
