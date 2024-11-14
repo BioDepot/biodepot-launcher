@@ -75,7 +75,7 @@ function Workflow(props) {
 
    const runOpenCommand = async () => {
       try {
-         const command = `${LAUNCH_COMMAND} -e STARTING_WORKFLOW=/data/${props.category}/${props.name}/${props.name}.ows biodepot/bwb`;
+         const command = `${LAUNCH_COMMAND} -e STARTING_WORKFLOW=/data/workflows/${props.category}/${props.name}/${props.name}.ows biodepot/bwb`;
          console.log(command);
          await os.execCommand(command, { background: true });
       } catch (e) {
@@ -98,13 +98,14 @@ function Workflow(props) {
 
       const osType = window.NL_OS;
 
+
       if (osType === "Windows") {
          let home = (await os.execCommand('echo %userprofile%')).stdOut.trim();
          let homeAltered = home.replace(/\\/g, '\/');
-         output = await os.execCommand(`docker run --rm -v .:/workspace/mnt -v ${homeAltered}/.aws:/root/.aws -v ${homeAltered}/.docker/machine:/root/.docker/machine biodepot/launcher-utils:latest "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
+         output = await os.execCommand(`docker run --rm -v .:/workspace/mnt -v ${homeAltered}/.aws:/root/.aws -v ${homeAltered}/.docker/machine:/root/.docker/machine biodepot/launcher-utils:latest "launch" "${region}" "${instance}" "${props.name}" "./workflows/${props.category}/${props.name}" "${osType}" "${home}"`);
       } else {
          let home = (await os.execCommand(`echo $HOME`)).stdOut.trim();
-         output = await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" -v "${home}/.aws":"/root/.aws" -v "${home}/.docker/machine":"/root/.docker/machine" biodepot/launcher-utils:latest "launch" "${region}" "${instance}" "${props.name}" "${props.category}/${props.name}" "${osType}" "${home}"`);
+         output = await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" -v "${home}/.aws":"/root/.aws" -v "${home}/.docker/machine":"/root/.docker/machine" biodepot/launcher-utils:latest "launch" "${region}" "${instance}" "${props.name}" "./workflows/${props.category}/${props.name}" "${osType}" "${home}"`);
       }
 
       if (osType === "Linux" || osType === "Windows") {
@@ -196,7 +197,7 @@ function Workflow(props) {
       const workflowType = props.category;
       const workflow = props.name;
  
-      await os.execCommand(`rm -rf ./${workflowType}/${workflow}`);
+      await os.execCommand(`rm -rf ./workflows/${workflowType}/${workflow}`);
       await os.execCommand(`rm ./.storage/${workflowType}-${workflow}`);
 
       try {
@@ -224,11 +225,11 @@ function Workflow(props) {
          }
 
          for (let folder of folders) {
-            await filesystem.createDirectory(folder);
+            await filesystem.createDirectory(`./workflows/${folder}`);
          }
 
          for (let file of files) {
-            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
+            await os.execCommand(`curl -o ./workflows/${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
          }
          
          for (let i = 0; i < props.needsUpdates.length; i++) {
@@ -257,9 +258,9 @@ function Workflow(props) {
 
    const setHashState = async () => {
       if (window.NL_OS === "Windows") {
-         await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
+         await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/workflows/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
       } else {
-         await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
+         await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/workflows/${props.category}/${props.name} > ./.storage/${props.category}-${props.name}`);
       }
    };
 
@@ -267,7 +268,7 @@ function Workflow(props) {
       const workflowType = props.category;
       const workflow = props.name;
  
-      await os.execCommand(`rm -rf ./${workflowType}/${workflow}`);
+      await os.execCommand(`rm -rf ./workflows/${workflowType}/${workflow}`);
 
       try {
          setIsLoading(true);
@@ -294,11 +295,11 @@ function Workflow(props) {
          }
 
          for (let folder of folders) {
-            await filesystem.createDirectory(folder);
+            await filesystem.createDirectory(`./workflows/${folder}`);
          }
 
          for (let file of files) {
-            await os.execCommand(`curl -o ./${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
+            await os.execCommand(`curl -o ./workflows/${file} https://raw.githubusercontent.com/Biodepot-workflows/launcher-selection/main/${file}`);
          }
 
          clearRevert(workflowType, workflow);

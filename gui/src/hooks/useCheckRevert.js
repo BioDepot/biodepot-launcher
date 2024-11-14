@@ -12,16 +12,16 @@ const useCheckRevert = () => {
       // Dict of <CATEGORY, List of installed workflows>
       const output = [];
       for (const category of CATEGORIES) {
-         const folderEntries = await filesystem.readDirectory(`./${category}`);
+         const folderEntries = await filesystem.readDirectory(`./workflows/${category}`);
          // Ignore directory names of .. and .
          const ignoreNames = (x) => x !== ".." && x !== ".";
          const filteredEntries = folderEntries.filter((x) => x.type === DIRECTORY && ignoreNames(x.entry)).map((x) => x.entry);
          for (const name of filteredEntries) {
             let hashOut = "";
             if (window.NL_OS === "Windows") {
-               hashOut = (await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/${category}/${name}`)).stdOut;
+               hashOut = (await os.execCommand(`docker run --rm -v .:/workspace/mnt biodepot/launcher-utils:latest "hash" /workspace/mnt/workflows/${category}/${name}`)).stdOut;
             } else {
-               hashOut = (await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/${category}/${name}`)).stdOut;
+               hashOut = (await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/workflows/${category}/${name}`)).stdOut;
             }
             const sha = hashOut;
             output.push({
