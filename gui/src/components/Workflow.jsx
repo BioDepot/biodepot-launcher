@@ -50,11 +50,20 @@ function Workflow(props) {
    const [instance, setInstance] = useState(initInstance);
 
    const changeRegion = (e) => {
-      setRegion(e.target.value)
+      setRegion(e.target.value);
    }
 
    const changeInstance = (e) => {
-      setInstance(e.target.value)
+      setInstance(e.target.value);
+
+      const priceElement = document.getElementById(e.target.value);
+      const priceValue = priceElement.getAttribute("data-price");
+
+      document.getElementById("price").textContent=priceValue;
+   }
+
+   const removePrice = (e) => {
+      document.getElementById("price").textContent="";
    }
 
    const [disableLaunch, setDisableLaunch] = useState(false);
@@ -96,16 +105,17 @@ function Workflow(props) {
       
       let output = "";
 
-      const osType = window.NL_OS;
+      const regionSelection = region || "us-east-2";
 
+      const osType = window.NL_OS;
 
       if (osType === "Windows") {
          let home = (await os.execCommand('echo %userprofile%')).stdOut.trim();
          let homeAltered = home.replace(/\\/g, '\/');
-         output = await os.execCommand(`docker run --rm -v .:/workspace/mnt -v ${homeAltered}/.aws:/root/.aws -v ${homeAltered}/.docker/machine:/root/.docker/machine biodepot/launcher-utils:latest "launch" "${region}" "${instance}" "${props.name}" "./workflows/${props.category}/${props.name}" "${osType}" "${home}"`);
+         output = await os.execCommand(`docker run --rm -v .:/workspace/mnt -v ${homeAltered}/.aws:/root/.aws -v ${homeAltered}/.docker/machine:/root/.docker/machine biodepot/launcher-utils:latest "launch" "${regionSelection}" "${instance}" "${props.name}" "./workflows/${props.category}/${props.name}" "${osType}" "${home}"`);
       } else {
          let home = (await os.execCommand(`echo $HOME`)).stdOut.trim();
-         output = await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" -v "${home}/.aws":"/root/.aws" -v "${home}/.docker/machine":"/root/.docker/machine" biodepot/launcher-utils:latest "launch" "${region}" "${instance}" "${props.name}" "./workflows/${props.category}/${props.name}" "${osType}" "${home}"`);
+         output = await os.execCommand(`docker run --rm -v ".":"/workspace/mnt" -v "${home}/.aws":"/root/.aws" -v "${home}/.docker/machine":"/root/.docker/machine" biodepot/launcher-utils:latest "launch" "${regionSelection}" "${instance}" "${props.name}" "./workflows/${props.category}/${props.name}" "${osType}" "${home}"`);
       }
 
       if (osType === "Linux" || osType === "Windows") {
@@ -432,7 +442,7 @@ function Workflow(props) {
             </Modal.Header>
             <Modal.Body>
                <label>Region:&nbsp;</label>
-               <input type="text" list= "region" value={region} onChange={changeRegion}/>
+               <input type="text" list= "region" value={region} onChange={changeRegion} placeholder="us-east-2"/>
                <datalist id="region" value={region} onChange={changeRegion}>
                   <option value="us-east-2">us-east-2</option>
                   <option value="us-east-1">us-east-1</option>
@@ -442,12 +452,17 @@ function Workflow(props) {
                <br />
                <br />
                <label>Instance Type:&nbsp;</label>
-               <input id="instanceText" type="text" list= "instance" value={instance} onChange={changeInstance}/>
+               <input id="instanceText" type="text" list= "instance" value={instance} onChange={changeInstance} onInput={removePrice}/>
                <datalist id="instance" value={instance} onChange={changeInstance}>
-                  <option value="m5d.4xlarge" selected>m5d.4xlarge</option>
+                  <option data-price=' $0.904/hr' id="m5d.4xlarge" value="m5d.4xlarge">m5d.4xlarge</option>
                </datalist>
+               <br />
+               <text>Price:</text><text id="price"></text>
             </Modal.Body>
             <Modal.Footer>
+               <text>Launching on AWS will incur charges to your account specified in AWS CLI.</text>
+               <text>If using a user defined instance type, please check current AWS pricing.</text>
+               <br />
                {showMessage && <text>Launching will take several minutes...</text>}
                <Button disabled={disableLaunch} variant="primary" onClick={() => openOnAWS()}>
                   Launch
