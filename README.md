@@ -86,7 +86,7 @@ To run the launcher with a debugger in development mode in the gui folder run `n
 ## Biodepot-workflow-builder (Bwb): background information
 - What is Bwb?  Check out a description [HERE](https://biodepot.github.io/training/basic_training/bwb/).
 - Basic use of the desktop environment is covered [HERE](https://biodepot.github.io/training/basic_training/desk_env/).
-- How to operate a workflow in Bwb is covered [HERE](https://www.youtube.com/watch?v=NtR7HLejo7w).
+- Quick start: example RNA-seq workflow in Bwb [HERE](https://biodepot.github.io/training/basic_training/salmon/).
 - When opening Bwb in a browser window, Bwb will not be maximized, and a file explorer will be open, too.  To maximize Bwb, simply close or minimize the file explorer, and maximize the Bwb window on the desktop displayed in the browser window.  The minimize and maximize buttons are in the upper right corner of each of the windows shown on the desktop in the browser window.
 
 
