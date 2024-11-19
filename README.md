@@ -11,7 +11,7 @@ Please note that this Launcher app launches a separate platform called [Biodepot
 - [Install as a user on WIndows WSL2 using Ubuntu](#install-as-a-user-on-windows-wsl2-using-ubuntu)
 - [Install for development (Ubuntu)](#install-for-development-ubuntu)
 - [Developing for the launcher](#developing-for-the-launcher)
-- [Potential sources of error with Biodepot Launcher](#potential-sources-of-error-with-biodepot-launcher)
+- [Troubleshooting](#troubleshooting)
 - [Notes about Bwb](#notes-about-bwb)
 
 ## Supported Operating Systems
@@ -20,7 +20,7 @@ Please note that this Launcher app launches a separate platform called [Biodepot
 - macOS (M-Series)
 
 ## How to Operate the Biodepot Launcher
-A training portal has been created to help new users understand how to use the Biodepot Launcher.  Please review the following [LINK](https://biodepot.github.io/training/running_bwb/bwb_launcher/).  The link contains information in textual and video format.
+A training portal has been created to help new users learn how to use the Biodepot Launcher. Detailed instructions in the format of text and demo videos are provided in this [workshop](https://biodepot.github.io/training/running_bwb/bwb_launcher/).  
 
 ## Install as a user on Ubuntu/Mac
 1. Make sure `curl` is installed.
@@ -72,19 +72,21 @@ To build and run the launcher, navigate to the gui folder and run the command `n
 
 To run the launcher with a debugger in development mode in the gui folder run `npm run build` followed by `npm start`.  In the launcher's root folder run the following command `neu run -- --window-enable-inspector`.  For any changes, the process that was followed was stopping neutralino, stopping the npm server, rebuilding, starting the npm server, then restarting neutralino with the previous command.  Rebuilding for every change may not be necessary.
 
-## Potential sources of error with Biodepot Launcher
+## Troubleshooting 
 - When launching an EC2 instance on AWS, if the instance does not show, check the `dm-output.log` file for details to help diagnose when the issue is.
   - Sometimes when launching a workflow on AWS, the instance will not correctly provision.  This is a docker-machine bug.  If the AWS provisioning takes longer than 5 minutes, check the log.  If the last line in the log reads `Error creating machine: Failed to obtain lock: Maximum number of retries (60) exceeded` then the bug has occurred.  Simply relaunch a workflow.  Also, make sure to close any instance that may have been created on AWS to prevent extraneous charges.
   - Credentials must be configured with the AWS CLI if the user tries launching to AWS.  If the user receives an error containing the follow text `amazonec2 driver requires AWS credentials configured with the --amazonec2-access-key and --amazonec2-secret-key options, environment variables, ~/.aws/credentials, or an instance role` then it is likely that correct credentials were not provided, or input at all.
 - It was noticed on Ubuntu with Docker Engine:  After a fresh install of Docker Engine, if starting the Launcher right afterwards, the Launcher will not detect Docker.  To fix this, restart Ubuntu.
 - When downloading/updating/rebasing a workflow, there will be a spinner displayed on the screen.  When this spinner is displayed, allow the operation to finish before clicking on anything else in the launcher.
 
+## Notes about deploying workflows on AWS
+- Launching workflows on AWS will incur charges to the user's AWS account. Current prices of AWS instances can be found [HERE](https://aws.amazon.com/ec2/pricing/on-demand/).
+- Launching on AWS currently requires that the user use the us-east-2 (Ohio) region.
+  
 ## Biodepot-workflow-builder (Bwb): background information
 - What is Bwb?  Check out a description [HERE](https://biodepot.github.io/training/basic_training/bwb/).
 - Basic use of the desktop environment is covered [HERE](https://biodepot.github.io/training/basic_training/desk_env/).
 - How to operate a workflow in Bwb is covered [HERE](https://www.youtube.com/watch?v=NtR7HLejo7w).
 - When opening Bwb in a browser window, Bwb will not be maximized, and a file explorer will be open, too.  To maximize Bwb, simply close or minimize the file explorer, and maximize the Bwb window on the desktop displayed in the browser window.  The minimize and maximize buttons are in the upper right corner of each of the windows shown on the desktop in the browser window.
 
-## Notes about AWS
-- Launching workflows on AWS will incur charges to the user's AWS account. Current prices of AWS instances can be found [HERE](https://aws.amazon.com/ec2/pricing/on-demand/).
-- Launching on AWS currently requires that the user use the us-east-2 (Ohio) region.
+
