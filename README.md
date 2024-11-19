@@ -76,7 +76,7 @@ To run the launcher with a debugger in development mode in the gui folder run `n
 - It was noticed on Ubuntu with Docker Engine:  After a fresh install of Docker Engine, if starting the Launcher right afterwards, the Launcher will not detect Docker.  To fix this, restart Ubuntu.
 - When downloading/updating/rebasing a workflow, there will be a spinner displayed on the screen.  When this spinner is displayed, allow the operation to finish before clicking on anything else in the launcher.
 
-## Notes about Bwb
+## Biodepot-workflow-builder (Bwb): background information
 - What is Bwb?  Check out a description [HERE](https://biodepot.github.io/training/basic_training/bwb/).
 - Basic use of the desktop environment is covered [HERE](https://biodepot.github.io/training/basic_training/desk_env/).
 - How to operate a workflow in Bwb is covered [HERE](https://www.youtube.com/watch?v=NtR7HLejo7w).
