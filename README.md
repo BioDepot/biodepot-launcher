@@ -1,4 +1,7 @@
 # Biodepot Launcher
+The Biodepot Launcher is a web application that facilitates installation, management and deployment of containerized bioinformatics workflows. This web application provides an interactive and easy-to-use interface to launch containerized analytical workflows that can be used to process biomedical data. 
+
+Please note that this Launcher app launches a separate platform called [Biodepot-workflow (Bwb)](https://github.com/BioDepot/BioDepot-workflow-builder). For more information on Bwb, please refer to the section titled "Biodepot-workflow-builder (Bwb): background information". We have also created a [Biodepot Training Portal](https://biodepot.github.io/training/) to provide information on this Launcher app, as well as how to create, edit and execute workflows in Bwb.
 
 **Note:** It is recommended to use Firefox or Google Chrome as a primary browser while running the Launcher.
 
@@ -83,5 +86,5 @@ To run the launcher with a debugger in development mode in the gui folder run `n
 - When opening Bwb in a browser window, Bwb will not be maximized, and a file explorer will be open, too.  To maximize Bwb, simply close or minimize the file explorer, and maximize the Bwb window on the desktop displayed in the browser window.  The minimize and maximize buttons are in the upper right corner of each of the windows shown on the desktop in the browser window.
 
 ## Notes about AWS
-- Current prices of AWS instances can be found [HERE](https://aws.amazon.com/ec2/pricing/on-demand/).
+- Launching workflows on AWS will incur charges to the user's AWS account. Current prices of AWS instances can be found [HERE](https://aws.amazon.com/ec2/pricing/on-demand/).
 - Launching on AWS currently requires that the user use the us-east-2 (Ohio) region.
