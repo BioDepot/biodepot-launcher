@@ -13,7 +13,7 @@ import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { FaBook, FaLaptopCode } from "react-icons/fa";
+import { FaBook, FaLaptopCode, FaRedo } from "react-icons/fa";
 import useHasDocu from '../hooks/useHasDocu';
 import { LAUNCH_COMMAND } from '../constants';
 import LaunchModal from './LaunchModal';
@@ -140,23 +140,23 @@ function Workflow(props) {
    };
 
    const renderUpdateButton = () => {
-      if (updated && reverted) {
+      if (updated) {
          return (
             <div className="align-middle border rounded-pill p-2 bg-muted">
                <span>Updated</span>
             </div>
          );
-      } else if (updated && !reverted) { 
-         return (
-            <OverlayTrigger placement="top" overlay={renderTooltip("Click to Rebase Workflow")}>
-               <div 
-                  className="border rounded-pill p-2 bg-muted workflow-update-btn d-flex align-items-center justify-content-between"
-                  onClick={openRevertModal}
-               >
-                  <span>Rebase</span>
-               </div>
-            </OverlayTrigger>
-         );
+      // } else if (updated && !reverted) { 
+      //    return (
+      //       <OverlayTrigger placement="top" overlay={renderTooltip("Click to Rebase Workflow")}>
+      //          <div 
+      //             className="border rounded-pill p-2 bg-muted workflow-update-btn d-flex align-items-center justify-content-between"
+      //             onClick={openRevertModal}
+      //          >
+      //             <span>Rebase</span>
+      //          </div>
+      //       </OverlayTrigger>
+      //    );
       } else if (isLoading) {
          return (
             <div className="align-middle border rounded-pill p-2 bg-muted workflow-update-btn d-flex align-items-center justify-content-between">
@@ -344,6 +344,26 @@ function Workflow(props) {
       } 
    };
 
+   const renderRebaseButton = () => {
+      if (updated) {
+         return (
+            <OverlayTrigger placement="top" overlay={renderTooltip("Rebase")}>
+               <div className="center" id={props.name + "-rebase"} onMouseEnter={() => onHoverRebase()} onMouseLeave={() => offHoverRebase() } onClick={openRevertModal} >
+                  <FaRedo size={28} />
+               </div>
+            </OverlayTrigger>
+         );
+      } else {
+         return (
+            <OverlayTrigger placement="top" overlay={renderTooltip("Cannot rebase when an update is available")}>
+               <div className="center">
+                  <FaRedo size={28} className="grey"/>
+               </div>
+            </OverlayTrigger>
+         );
+      }
+   };
+
    // Renders the `Open-Documentation` button for a workflow
    // Button will be disabled if workflow doesn't have a README file associated
    const renderDocButton = () => {
@@ -375,6 +395,15 @@ function Workflow(props) {
    const offHoverDocs = () => {
       document.getElementById(props.name + "-docs").classList.remove("hover-on");
       document.getElementById(props.name + "-docs").className = "hover-off";
+   }
+
+   const onHoverRebase = () => {
+      document.getElementById(props.name + "-rebase").className = "hover-on";
+   }
+
+   const offHoverRebase = () => {
+      document.getElementById(props.name + "-rebase").classList.remove("hover-on");
+      document.getElementById(props.name + "-rebase").className = "hover-off";
    }
 
    const onHoverLaunch = () => {
@@ -427,6 +456,7 @@ function Workflow(props) {
          <td>{props.name}</td>
          <td>{renderCircleFill()}</td>
          <td>{renderUpdateButton()}</td>
+         <td>{renderRebaseButton()}</td>
          <td>{renderDocButton()}</td>
          <td>
             <OverlayTrigger placement="top" overlay={renderTooltip("Launch Workflow")}>
