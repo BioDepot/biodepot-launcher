@@ -1,5 +1,5 @@
 # Biodepot Launcher
-The Biodepot Launcher is a web application that facilitates installation, management and deployment of containerized bioinformatics workflows. This web application provides an interactive and easy-to-use interface to launch containerized analytical workflows that can be used to process biomedical data. 
+The Biodepot Launcher is a desktop application that facilitates installation, management and deployment of containerized bioinformatics workflows. This application provides an interactive and easy-to-use interface to launch containerized analytical workflows that can be used to process biomedical data. 
 
 Please note that this Launcher app launches a separate platform called [Biodepot-workflow (Bwb)](https://github.com/BioDepot/BioDepot-workflow-builder). For more information on Bwb, please refer to the section titled "Biodepot-workflow-builder (Bwb): background information". We have also created a [Biodepot Training Portal](https://biodepot.github.io/training/) to provide information on this Launcher app, as well as how to create, edit and execute workflows in Bwb.
 
@@ -66,7 +66,7 @@ A training portal has been created to help new users learn how to use the Biodep
   - `npm install -g @neutralinojs/neu`
 
 ## Developing for the launcher
-**Note:** Check out the [CONTRIBUTING.md](CONTRIBUTING.md) for detaisl on how to submit bug reports to the Biodepot Launcher.
+**Note:** Check out the [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to submit bug reports to the Biodepot Launcher.
 
 To build and run the launcher, navigate to the gui folder and run the command `npm run build`.  This will build the React portion of the application.  Next navigate to the launcher's root folder and run the command `neu build --release`.  This will build the binaries of the Neutralino application, which are located in the dist/gui-app folder.  Navigate to this folder and `chmod +x gui-app-linux_x64` to give execute permissions to the binary.  To start the app, run the gui-app-linux_x64 binary.
 
