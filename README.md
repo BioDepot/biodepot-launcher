@@ -80,6 +80,7 @@ To run the launcher with a debugger in development mode in the gui folder run `n
 - When downloading/updating/rebasing a workflow, there will be a spinner displayed on the screen.  When this spinner is displayed, allow the operation to finish before clicking on anything else in the launcher.
 
 ## Notes about deploying workflows on AWS
+- **If troubleshooting an AWS instance, always verify in the AWS console that the instance has been shut down.  This will prevent unwanted usage charges.**
 - Launching workflows on AWS will incur charges to the user's AWS account. Current prices of AWS instances can be found [HERE](https://aws.amazon.com/ec2/pricing/on-demand/).
 - Launching on AWS currently requires that the user use the us-east-2 (Ohio) region.
   

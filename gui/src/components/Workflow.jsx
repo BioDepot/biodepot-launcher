@@ -63,7 +63,7 @@ function Workflow(props) {
    }
 
    const removePrice = (e) => {
-      document.getElementById("price").textContent="";
+      document.getElementById("price").textContent="Check Current AWS Pricing";
    }
 
    const [disableLaunch, setDisableLaunch] = useState(false);
@@ -475,19 +475,19 @@ function Workflow(props) {
                <input type="text" list= "region" value={region} onChange={changeRegion} placeholder="us-east-2"/>
                <datalist id="region" value={region} onChange={changeRegion}>
                   <option value="us-east-2">us-east-2</option>
-                  <option value="us-east-1">us-east-1</option>
+                  {/* <option value="us-east-1">us-east-1</option>
                   <option value="us-west-1">us-west-1</option>
-                  <option value="us-west-2">us-west-2</option>
+                  <option value="us-west-2">us-west-2</option> */}
                </datalist>
                <br />
                <br />
                <label>Instance Type:&nbsp;</label>
                <input id="instanceText" type="text" list= "instance" value={instance} onChange={changeInstance} onInput={removePrice}/>
                <datalist id="instance" value={instance} onChange={changeInstance}>
-                  <option data-price=' $0.904/hr' id="m5d.4xlarge" value="m5d.4xlarge">m5d.4xlarge</option>
+                  <option data-price='$0.904/hr' id="m5d.4xlarge" value="m5d.4xlarge">m5d.4xlarge</option>
                </datalist>
                <br />
-               <text>Price:</text><text id="price"></text>
+               <text>Price:&nbsp;</text><text id="price">NA</text>
             </Modal.Body>
             <Modal.Footer>
                <text>Launching on AWS will incur charges to your account specified in AWS CLI.</text>
