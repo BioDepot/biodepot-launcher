@@ -7,12 +7,15 @@ Please note that this Launcher app launches a separate platform called [Biodepot
 
 ## Table of Contents
 - [Supported Operating Systemes](#supported-operating-systems)
+- [How to Operate the Biodepot Launcher](#how-to-operate-the-biodepot-launcher)
 - [Install as a user on Ubuntu/Mac](#install-as-a-user-on-ubuntumac)
 - [Install as a user on WIndows WSL2 using Ubuntu](#install-as-a-user-on-windows-wsl2-using-ubuntu)
 - [Install for development (Ubuntu)](#install-for-development-ubuntu)
 - [Developing for the launcher](#developing-for-the-launcher)
 - [Troubleshooting](#troubleshooting)
-- [Notes about Bwb](#notes-about-bwb)
+- [Notes about deploying workflows on AWS](#notes-about-deploying-workflows-on-aws)
+- [Biodepot-workflow-builder (Bwb): background information](#biodepot-workflow-builder-bwb-background-information)
+- [Publication](#publication)
 
 ## Supported Operating Systems
 - Ubuntu
@@ -90,4 +93,6 @@ To run the launcher with a debugger in development mode in the gui folder run `n
 - Quick start: example RNA-seq workflow in Bwb [HERE](https://biodepot.github.io/training/basic_training/salmon/).
 - When opening Bwb in a browser window, Bwb will not be maximized, and a file explorer will be open, too.  To maximize Bwb, simply close or minimize the file explorer, and maximize the Bwb window on the desktop displayed in the browser window.  The minimize and maximize buttons are in the upper right corner of each of the windows shown on the desktop in the browser window.
 
+## Publication
 
+Hung, L. H., Dahlstrom, T. J., Garnica, J., Munoz, E., Schmitz, R., & Yeung, K. Y. (2025). Biodepot launcher: An app to install, manage and launch bioinformatics workflows. *Gigabyte, 2025*. https://doi.org/10.46471/gigabyte.146
